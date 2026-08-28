@@ -96,6 +96,7 @@ body.hot #ptr{opacity:1}
 .s.pic .meta,.s.pic .hair,.s.pic .bar{display:none}
 .body{flex:1;display:flex;flex-direction:column;justify-content:center;min-height:0;
   padding:clamp(14px,3vw,52px) 0 clamp(10px,1.6vw,26px);gap:clamp(14px,2.4vw,40px)}
+.body.tight{padding:clamp(10px,1.8vw,26px) 0 clamp(6px,.8vw,12px);gap:clamp(10px,1.4vw,22px)}
 
 /* ══════════ TIPOGRAFIA ══════════ */
 .mega{font-family:var(--disp);font-weight:900;font-stretch:125%;
@@ -203,6 +204,10 @@ body.hot #ptr{opacity:1}
 .cd.lm .d{opacity:.78}.cd.lm .n{color:var(--lab-ink);opacity:.55}
 .cd.tl{background:var(--teal);color:var(--ink-d);box-shadow:none}
 .cd.tl .d{opacity:.8}.cd.tl .n{color:var(--ink-d);opacity:.6}
+.s.paper .cd.hl,.s.iris .cd.hl,.s.lime .cd.hl{background:var(--iris);color:#fff;box-shadow:none}
+.s.paper .cd.lm,.s.iris .cd.lm,.s.lime .cd.lm{background:var(--lime);color:var(--lab-ink);box-shadow:none}
+.s.paper .cd.tl,.s.iris .cd.tl,.s.lime .cd.tl{background:var(--teal);color:var(--ink-d);box-shadow:none}
+.s.paper .cd.hl .n{color:#fff}.s.paper .cd.hl .d{opacity:.86}
 
 /* ══════════ ÍCONES ══════════ */
 .ic{width:clamp(30px,3.1vw,50px);height:clamp(30px,3.1vw,50px);color:var(--iris-l);flex:none}
@@ -288,6 +293,7 @@ body.hot #ptr{opacity:1}
 .fo{flex:none;display:flex;justify-content:space-between;align-items:center;gap:16px;
   border-top:1px solid currentColor;padding-top:clamp(8px,.95vw,14px)}
 .fo .bd{display:flex;align-items:center;gap:clamp(8px,.9vw,15px);opacity:.78}
+.fo .bd img{height:clamp(11px,1.15vw,17px);width:auto;display:block}
 .fo .bd svg{height:clamp(11px,1.15vw,17px);width:auto;display:block}
 .fo .bd .x{font-family:var(--mono);font-size:clamp(8px,.7vw,10.4px);opacity:.55}
 .fo .bd span.n{font-family:var(--mono);font-size:clamp(8px,.7vw,10.4px);letter-spacing:.18em}
@@ -313,7 +319,7 @@ body.hot #ptr{opacity:1}
 .s.pic.on .img img{animation:kb 11s cubic-bezier(.2,.6,.3,1) forwards}
 @keyframes kb{to{transform:scale(1)}}
 .pic .scrim{position:absolute;inset:0;background:
-  linear-gradient(80deg,rgba(6,7,15,.95) 10%,rgba(6,7,15,.6) 44%,rgba(6,7,15,.05) 86%),
+  linear-gradient(80deg,rgba(6,7,15,.94) 8%,rgba(6,7,15,.42) 46%,rgba(6,7,15,0) 88%),
   linear-gradient(0deg,rgba(6,7,15,.95) 0,rgba(6,7,15,.42) 18%,transparent 38%)}
 .pic .cap{position:relative;z-index:2;padding:var(--pad);width:100%;display:flex;flex-direction:column;gap:clamp(10px,1.4vw,22px)}
 .pic .fo{position:relative;z-index:2;margin:0 var(--pad) clamp(14px,2vw,26px)}
@@ -898,8 +904,8 @@ body.hot #ptr{opacity:1}
 <!-- ═══ 20 · COMPARATIVO ═══ -->
 <section class="s paper">
   <div class="meta"><span class="l">Preço de lista por usuário/mês</span><span class="r">Consultado em agosto de 2026</span></div>
-  <div class="body">
-    <h2 class="mega xs"><span class="ln"><i>O mercado cobra parecido.</i></span><span class="ln"><i>A diferença está no <em>escopo.</em></i></span></h2>
+  <div class="body tight">
+    <h2 class="mega xs" style="font-size:clamp(20px,3.6vw,58px)"><span class="ln"><i>O mercado cobra parecido.</i></span><span class="ln"><i>A diferença está no <em>escopo.</em></i></span></h2>
     <div class="rows thin">
       <div class="row hi"><span class="k">Ariuno · faixa 20–39 usuários<b>Projetos + horas + aprovações + portal do cliente + áreas da empresa + IA</b></span><span class="v"><em>R$ 87</em><s>tudo incluso</s></span></div>
       <div class="row"><span class="k">monday.com · Pro<b>Forte em quadro. Timesheet e portal de aprovação exigem apps e plano maior</b></span><span class="v">R$ 105<s>anual</s></span></div>
@@ -949,7 +955,7 @@ body.hot #ptr{opacity:1}
 <!-- ═══ 23 · TABELA PROGRESSIVA ═══ -->
 <section class="s paper">
   <div class="meta"><span class="l">Tabela progressiva</span><span class="r">Assinatura mensal · por usuário ativo</span></div>
-  <div class="body">
+  <div class="body tight">
     <div class="sp-b">
       <div class="rows thin">
         <div class="row"><span class="k">5 a 9 usuários</span><span class="v">R$ 119<s>por usuário/mês</s></span></div>
@@ -975,7 +981,7 @@ body.hot #ptr{opacity:1}
 <!-- ═══ 24 · O QUE ESTÁ INCLUSO ═══ -->
 <section class="s">
   <div class="meta"><span class="l">Sem plano trancado</span><span class="r">O que vem na assinatura</span></div>
-  <div class="body">
+  <div class="body tight">
     <h2 class="mega xs"><span class="ln"><i>Todo mundo tem</i></span><span class="ln"><i><em>tudo.</em> Só muda o tamanho.</i></span></h2>
     <div class="duo">
       <div>
@@ -1021,10 +1027,10 @@ body.hot #ptr{opacity:1}
     <h2 class="mega xs"><span class="ln"><i>Em três semanas</i></span><span class="ln"><i>o time já está <em>dentro.</em></i></span></h2>
     <div class="gantt">
       <div class="gr"><span class="gk">Descoberta</span><div class="gt"><i style="left:0;width:16%">Dias 1–3</i></div></div>
-      <div class="gr"><span class="gk">Configuração</span><div class="gt"><i class="b" style="left:14%;width:30%">Dias 4–9 · quadros, campos, permissões, marca</i></div></div>
-      <div class="gr"><span class="gk">Migração</span><div class="gt"><i class="c" style="left:33%;width:34%">Dias 8–14 · clientes, projetos e tarefas em aberto</i></div></div>
-      <div class="gr"><span class="gk">Treinamento</span><div class="gt"><i class="b" style="left:52%;width:31%">Dias 12–18 · duas turmas + material</i></div></div>
-      <div class="gr"><span class="gk">Go-live</span><div class="gt"><i class="d" style="left:66%;width:34%">Dias 15–21 · acompanhamento e ajuste fino</i></div></div>
+      <div class="gr"><span class="gk">Configuração</span><div class="gt"><i class="b" style="left:14%;width:30%">Dias 4–9 · quadros e permissões</i></div></div>
+      <div class="gr"><span class="gk">Migração</span><div class="gt"><i class="c" style="left:33%;width:34%">Dias 8–14 · migração da base</i></div></div>
+      <div class="gr"><span class="gk">Treinamento</span><div class="gt"><i class="b" style="left:52%;width:31%">Dias 12–18 · duas turmas</i></div></div>
+      <div class="gr"><span class="gk">Go-live</span><div class="gt"><i class="d" style="left:66%;width:34%">Dias 15–21 · go-live</i></div></div>
     </div>
     <p class="disc">Prazo de referência para times de até 40 usuários. Migração de base existente e integrações específicas podem alongar a fase de configuração.</p>
   </div>
@@ -1199,6 +1205,14 @@ body.hot #ptr{opacity:1}
       requestAnimationFrame(lp);
     })();
   }
+
+  document.querySelectorAll('.frame img,.shot img,.pic .img img').forEach(function(im){
+    im.addEventListener('error',function(){
+      im.style.visibility='hidden';
+      var host=im.parentElement;
+      if(host) host.style.background='linear-gradient(135deg,#151934,#1E234A)';
+    });
+  });
 
   var seqT=null;
   function stopSeq(){ if(seqT){clearTimeout(seqT);seqT=null} }
