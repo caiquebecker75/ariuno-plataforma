@@ -1,0 +1,1231 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ariuno · a plataforma de gestão da 75 LAB</title>
+<meta name="description" content="Do briefing ao relatório do cliente em uma única plataforma. Ariuno: gestão de projetos, tempo, aprovações, departamentos e portal do cliente — criada e operada pela 75 LAB.">
+<meta name="author" content="75 LAB">
+<meta name="theme-color" content="#0B0D1E">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Ariuno · a plataforma de gestão da 75 LAB">
+<meta property="og:description" content="Uma plataforma. Do briefing ao relatório do cliente.">
+<meta property="og:url" content="https://projetos.75lab.com.br/ariuno-plataforma/">
+<meta property="og:image" content="https://projetos.75lab.com.br/ariuno-plataforma/assets/shots/02-visao-geral.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* Ariuno */
+  --ink:#0B0D1E; --ink-d:#06070F; --ink-l:#151934; --ink-s:#1E234A;
+  --iris:#6A5CFF; --iris-l:#8E82FF; --iris-d:#4B3BE0;
+  --blue:#4285FF; --teal:#00C2A8;
+  --paper:#F7F8FD; --paper-d:#EAEDF9; --line:#D7DCF0;
+  --txt:#0B0D1E; --txt-2:#5A6180; --txt-3:#8A90AC;
+  --gr:#0E8A6A; --wn:#E0453C;
+  /* 75 LAB · cor da ação */
+  --lime:#C0EE4E; --lab-ink:#0A0A08;
+  --disp:'Archivo',Impact,sans-serif;
+  --body:'Space Grotesk',system-ui,sans-serif;
+  --mono:'Space Mono',ui-monospace,monospace;
+  --pad:clamp(20px,4.4vw,76px);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{background:var(--ink-d);color:var(--paper);font-family:var(--body);overflow:hidden;
+  -webkit-font-smoothing:antialiased;cursor:none}
+
+/* ══════════ CURSOR ══════════ */
+#cur,#dot,#ptr{position:fixed;top:0;left:0;z-index:9999;pointer-events:none;will-change:transform}
+#cur,#dot{mix-blend-mode:difference}
+#cur{width:38px;height:38px;margin:-19px 0 0 -19px;
+  transition:width .24s cubic-bezier(.2,1.1,.3,1),height .24s cubic-bezier(.2,1.1,.3,1),margin .24s cubic-bezier(.2,1.1,.3,1),opacity .2s}
+#cur .rg{position:absolute;inset:0;border-radius:50%;border:1.5px solid #fff}
+#cur .dsh{position:absolute;inset:-7px;animation:cspin 9s linear infinite}
+#cur .dsh circle{fill:none;stroke:#fff;stroke-width:1.2;stroke-dasharray:2.4 7;opacity:.75}
+@keyframes cspin{to{transform:rotate(360deg)}}
+#dot{width:5px;height:5px;margin:-2.5px 0 0 -2.5px;border-radius:50%;background:#fff;transition:opacity .2s,transform .16s}
+#ptr{width:15px;height:18px;margin:1px 0 0 1px;opacity:0;transform-origin:0 0;
+  transition:opacity .2s;filter:drop-shadow(0 2px 5px rgba(0,0,0,.5))}
+#ptr svg{width:100%;height:100%;display:block}
+body.hot #cur{width:60px;height:60px;margin:-30px 0 0 -30px}
+body.hot #dot{transform:scale(1.9)}
+body.hot #ptr{opacity:1}
+#cur.off,#dot.off,#ptr.off{opacity:0!important}
+@media (hover:none),(pointer:coarse){body{cursor:auto}#cur,#dot,#ptr{display:none}}
+
+/* ══════════ DECK ══════════ */
+.deck{position:fixed;inset:0}
+.s{position:absolute;inset:0;display:flex;flex-direction:column;background:var(--ink);color:var(--paper);
+  padding:clamp(16px,2.6vw,34px) var(--pad) clamp(14px,2vw,26px);
+  opacity:0;visibility:hidden;pointer-events:none;transition:opacity .38s ease,visibility .38s;
+  overflow:hidden auto;scrollbar-width:none}
+.s::-webkit-scrollbar{width:0}
+.s.on{opacity:1;visibility:visible;pointer-events:auto;z-index:2}
+.s.deep{background:var(--ink-d)}
+.s.paper{background:var(--paper);color:var(--txt)}
+.s.iris{background:var(--iris);color:#fff}
+.s.lime{background:var(--lime);color:var(--lab-ink)}
+.s.pic{padding:0;justify-content:flex-end}
+.s::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:0;
+  background:radial-gradient(58% 74% at 78% 12%,rgba(106,92,255,.30),transparent 66%),
+             radial-gradient(52% 62% at 6% 92%,rgba(0,194,168,.20),transparent 70%)}
+.s.on::before{animation:glow 1.5s ease forwards}
+@keyframes glow{to{opacity:1}}
+.s.paper::before{background:radial-gradient(56% 70% at 84% 8%,rgba(106,92,255,.14),transparent 64%),
+             radial-gradient(50% 58% at 4% 96%,rgba(0,194,168,.10),transparent 70%)}
+.s.iris::before{background:radial-gradient(60% 76% at 82% 10%,rgba(255,255,255,.26),transparent 66%),
+             radial-gradient(50% 60% at 2% 94%,rgba(0,194,168,.34),transparent 70%)}
+.s.lime::before{background:radial-gradient(60% 76% at 82% 10%,rgba(255,255,255,.5),transparent 66%)}
+.s.pic::before{display:none}
+.s>*{position:relative;z-index:1}
+
+/* ══════════ CABEÇALHO ══════════ */
+.meta{flex:none;display:flex;justify-content:space-between;align-items:baseline;gap:16px;
+  font-family:var(--mono);font-size:clamp(8.4px,.72vw,11px);letter-spacing:.18em;text-transform:uppercase}
+.meta .l{opacity:.64}
+.meta .r{opacity:.64;text-align:right;white-space:nowrap}
+.hair{flex:none;height:1px;background:currentColor;opacity:.24;margin-top:clamp(6px,.8vw,11px)}
+.bar{flex:none;height:clamp(4px,.5vw,7px);background:var(--iris);transform:scaleX(0);transform-origin:left}
+.s.iris .bar,.s.lime .bar{background:var(--ink-d)}
+.s.on .bar{animation:wipe .8s cubic-bezier(.2,.82,.24,1) .06s forwards}
+@keyframes wipe{to{transform:scaleX(1)}}
+.s.pic .meta,.s.pic .hair,.s.pic .bar{display:none}
+.body{flex:1;display:flex;flex-direction:column;justify-content:center;min-height:0;
+  padding:clamp(14px,3vw,52px) 0 clamp(10px,1.6vw,26px);gap:clamp(14px,2.4vw,40px)}
+
+/* ══════════ TIPOGRAFIA ══════════ */
+.mega{font-family:var(--disp);font-weight:900;font-stretch:125%;
+  font-size:clamp(34px,8.4vw,140px);line-height:.86;letter-spacing:-.036em;text-transform:uppercase}
+.mega.sm{font-size:clamp(28px,6.2vw,102px)}
+.mega.xs{font-size:clamp(23px,4.5vw,72px)}
+.mega.xxl{font-size:clamp(40px,10.4vw,176px)}
+.mega em{font-style:normal;color:var(--iris-l)}
+.s.paper .mega em{color:var(--iris-d)}
+.s.iris .mega em,.s.lime .mega em{color:#fff}
+.s.lime .mega em{color:var(--iris-d)}
+.mega .pre{font-size:.34em;font-stretch:112%;letter-spacing:-.012em;margin-bottom:.12em;color:var(--iris-l)}
+.s.paper .mega .pre{color:var(--iris-d)}
+.s.iris .mega .pre,.s.lime .mega .pre{opacity:.66;color:inherit}
+.ln{display:block;overflow:hidden;padding:.2em 0 .1em;margin:-.2em 0 -.1em}
+.ln>i{display:block;font-style:normal;transform:translateY(130%)}
+.s.on .ln>i{animation:lift .9s cubic-bezier(.16,.86,.26,1) forwards}
+.s.on .ln:nth-child(1)>i{animation-delay:.16s}.s.on .ln:nth-child(2)>i{animation-delay:.25s}
+.s.on .ln:nth-child(3)>i{animation-delay:.34s}.s.on .ln:nth-child(4)>i{animation-delay:.43s}
+.s.on .ln:nth-child(5)>i{animation-delay:.52s}.s.on .ln:nth-child(6)>i{animation-delay:.61s}
+@keyframes lift{to{transform:translateY(0)}}
+.say{font-size:clamp(13px,1.5vw,25px);line-height:1.34;font-weight:400;max-width:27ch;opacity:.84}
+.say b{font-weight:600;opacity:1;color:var(--iris-l)}
+.s.paper .say b{color:var(--iris-d)}
+.s.iris .say b,.s.lime .say b{color:inherit;text-decoration:underline;text-underline-offset:.18em}
+.say.w{max-width:44ch}
+.say.sm{font-size:clamp(11.4px,1.15vw,18px);max-width:40ch}
+.tag{font-family:var(--mono);font-size:clamp(9px,.78vw,12px);letter-spacing:.2em;text-transform:uppercase;opacity:.62}
+.tag em{font-style:normal;color:var(--iris-l);opacity:1}
+.s.paper .tag em{color:var(--iris-d)}
+.disc{font-family:var(--mono);font-size:clamp(8px,.68vw,10.4px);letter-spacing:.14em;text-transform:uppercase;opacity:.44;line-height:1.5}
+.kicker{display:inline-block;align-self:flex-start;background:var(--iris);color:#fff;
+  font-family:var(--disp);font-weight:800;font-stretch:112%;text-transform:uppercase;
+  font-size:clamp(10px,1vw,16px);letter-spacing:.02em;padding:.42em .82em;border-radius:3px}
+.kicker.lm{background:var(--lime);color:var(--lab-ink)}
+.kicker.tl{background:var(--teal);color:var(--ink-d)}
+.kicker.pp{background:var(--paper);color:var(--ink)}
+
+/* ══════════ NÚMEROS ══════════ */
+.num{font-family:var(--disp);font-weight:900;font-stretch:125%;line-height:.76;letter-spacing:-.055em;
+  font-size:clamp(90px,20vw,320px);color:var(--iris-l)}
+.s.paper .num{color:var(--iris)}
+.s.iris .num,.s.lime .num{color:currentColor}
+.num u{text-decoration:none;font-size:.26em;letter-spacing:.02em;font-stretch:100%;vertical-align:.6em;margin-left:.05em}
+.num.mid{font-size:clamp(54px,11vw,178px)}
+.num.sm{font-size:clamp(38px,6.6vw,104px)}
+.num .pfx{font-style:normal;font-size:.26em;font-stretch:100%;letter-spacing:-.01em;vertical-align:.7em;margin-right:.12em;opacity:.6}
+.bn{display:flex;flex-direction:column;gap:clamp(4px,.5vw,9px)}
+.bn .lb{font-family:var(--mono);font-size:clamp(9px,.76vw,12px);letter-spacing:.16em;text-transform:uppercase;opacity:.6;max-width:22ch}
+
+/* ══════════ LINHAS DE DADOS ══════════ */
+.rows{display:flex;flex-direction:column;width:100%}
+.row{display:flex;justify-content:space-between;align-items:baseline;gap:20px;
+  padding:clamp(9px,1.15vw,19px) 0;border-top:1px solid currentColor;position:relative;transition:.2s}
+.row:first-child{border-top-width:2px}
+.row:last-child{border-bottom:1px solid currentColor}
+.row:hover{padding-left:9px}
+.row .k{font-family:var(--mono);font-size:clamp(9px,.76vw,12px);letter-spacing:.16em;text-transform:uppercase;opacity:.62}
+.row .k b{font-family:var(--body);letter-spacing:0;text-transform:none;font-size:1.22em;opacity:1;display:block;margin-top:.35em;font-weight:400}
+.row .v{font-family:var(--disp);font-weight:800;font-stretch:112%;font-size:clamp(15px,1.8vw,30px);letter-spacing:-.02em;text-align:right;white-space:nowrap}
+.row .v em{font-style:normal;color:var(--iris-l)}
+.s.paper .row .v em{color:var(--iris-d)}
+.row .v s{text-decoration:none;display:block;font-family:var(--mono);font-weight:400;font-size:.4em;letter-spacing:.14em;opacity:.55;text-transform:uppercase;margin-top:.4em}
+.rows.thin .row{padding:clamp(6px,.75vw,12px) 0}
+.row.hi{background:linear-gradient(90deg,rgba(106,92,255,.16),transparent 70%);padding-left:clamp(8px,1vw,16px)}
+.s.paper .row.hi{background:linear-gradient(90deg,rgba(106,92,255,.12),transparent 70%)}
+.s.on .rows>*{animation:fadeup .62s cubic-bezier(.2,.85,.3,1) backwards}
+.s.on .rows>*:nth-child(1){animation-delay:.30s}.s.on .rows>*:nth-child(2){animation-delay:.37s}
+.s.on .rows>*:nth-child(3){animation-delay:.44s}.s.on .rows>*:nth-child(4){animation-delay:.51s}
+.s.on .rows>*:nth-child(5){animation-delay:.58s}.s.on .rows>*:nth-child(6){animation-delay:.65s}
+.s.on .rows>*:nth-child(7){animation-delay:.72s}.s.on .rows>*:nth-child(8){animation-delay:.79s}
+@keyframes fadeup{from{opacity:0;transform:translateY(15px)}to{opacity:1;transform:none}}
+
+/* ══════════ GRIDS ══════════ */
+.g{display:grid;gap:clamp(14px,2.2vw,44px)}
+.g2{grid-template-columns:repeat(2,1fr)}.g3{grid-template-columns:repeat(3,1fr)}
+.g4{grid-template-columns:repeat(4,1fr)}
+.sp{display:grid;grid-template-columns:1.06fr .94fr;gap:clamp(18px,3.4vw,70px);align-items:center}
+.sp-a{display:grid;grid-template-columns:.82fr 1.18fr;gap:clamp(18px,3.4vw,64px);align-items:center}
+.sp-b{display:grid;grid-template-columns:1.25fr .75fr;gap:clamp(18px,3.4vw,64px);align-items:center}
+.stack{display:flex;flex-direction:column;gap:clamp(8px,1.1vw,18px)}
+.s.on .fu{animation:fadeup .7s cubic-bezier(.2,.85,.3,1) backwards}
+.s.on .fu:nth-child(1){animation-delay:.26s}.s.on .fu:nth-child(2){animation-delay:.34s}
+.s.on .fu:nth-child(3){animation-delay:.42s}.s.on .fu:nth-child(4){animation-delay:.50s}
+.s.on .fu:nth-child(5){animation-delay:.58s}.s.on .fu:nth-child(6){animation-delay:.66s}
+.s.on .fu:nth-child(7){animation-delay:.74s}.s.on .fu:nth-child(8){animation-delay:.82s}
+
+/* ══════════ CARDS ══════════ */
+.cd{display:flex;flex-direction:column;gap:clamp(7px,.85vw,14px);padding:clamp(13px,1.5vw,25px);
+  border-radius:clamp(9px,1vw,16px);background:rgba(247,248,253,.055);
+  box-shadow:inset 0 0 0 1px rgba(247,248,253,.15);transition:transform .38s cubic-bezier(.2,.9,.3,1),background .3s,box-shadow .3s}
+.s.paper .cd{background:rgba(11,13,30,.035);box-shadow:inset 0 0 0 1px rgba(11,13,30,.12)}
+.s.iris .cd{background:rgba(255,255,255,.16);box-shadow:inset 0 0 0 1px rgba(255,255,255,.28)}
+.s.lime .cd{background:rgba(10,10,8,.06);box-shadow:inset 0 0 0 1px rgba(10,10,8,.18)}
+.cd:hover{transform:translateY(-6px);background:rgba(106,92,255,.14);box-shadow:inset 0 0 0 1px var(--iris)}
+.cd .t{font-family:var(--disp);font-weight:800;font-stretch:118%;text-transform:uppercase;
+  font-size:clamp(13px,1.5vw,25px);line-height:1.02;letter-spacing:-.022em}
+.cd .d{font-size:clamp(10.4px,.94vw,15px);line-height:1.42;opacity:.72}
+.cd .n{font-family:var(--mono);font-size:clamp(9px,.74vw,11.6px);letter-spacing:.18em;color:var(--iris-l);opacity:.9}
+.s.paper .cd .n{color:var(--iris-d)}
+.cd.hl{background:var(--iris);color:#fff;box-shadow:none}
+.cd.hl .d{opacity:.86}.cd.hl .n{color:#fff;opacity:.66}
+.cd.hl:hover{background:var(--iris-l);box-shadow:none}
+.cd.lm{background:var(--lime);color:var(--lab-ink);box-shadow:none}
+.cd.lm .d{opacity:.78}.cd.lm .n{color:var(--lab-ink);opacity:.55}
+.cd.tl{background:var(--teal);color:var(--ink-d);box-shadow:none}
+.cd.tl .d{opacity:.8}.cd.tl .n{color:var(--ink-d);opacity:.6}
+
+/* ══════════ ÍCONES ══════════ */
+.ic{width:clamp(30px,3.1vw,50px);height:clamp(30px,3.1vw,50px);color:var(--iris-l);flex:none}
+.ic svg{width:100%;height:100%;display:block}
+.ic.big{width:clamp(42px,4.6vw,76px);height:clamp(42px,4.6vw,76px)}
+.ic.sm{width:clamp(20px,1.9vw,30px);height:clamp(20px,1.9vw,30px)}
+.s.paper .ic{color:var(--iris)}
+.s.iris .ic,.s.lime .ic{color:currentColor}
+.cd.hl .ic,.cd.lm .ic,.cd.tl .ic{color:currentColor}
+@keyframes ibob{0%,100%{transform:translateY(0)}50%{transform:translateY(-2.6px)}}
+@keyframes ipulse{0%,100%{opacity:.32}50%{opacity:1}}
+@keyframes iring{0%{transform:scale(.5);opacity:.85}100%{transform:scale(1.55);opacity:0}}
+@keyframes iflow{to{stroke-dashoffset:-34}}
+@keyframes ispin{to{transform:rotate(360deg)}}
+@keyframes iswing{0%,100%{transform:rotate(-7deg)}50%{transform:rotate(7deg)}}
+@keyframes irise{0%,100%{transform:scaleY(.55)}50%{transform:scaleY(1)}}
+@keyframes iblink{0%,88%,100%{opacity:1}92%{opacity:.15}}
+.i-bob{animation:ibob 2.4s ease-in-out infinite}
+.i-pulse{animation:ipulse 1.9s ease-in-out infinite;transform-origin:center}
+.i-ring{animation:iring 2.3s ease-out infinite;transform-origin:center}
+.i-flow{stroke-dasharray:6 5;animation:iflow 1.5s linear infinite}
+.i-spin{animation:ispin 8s linear infinite;transform-origin:center}
+.i-swing{animation:iswing 2.6s ease-in-out infinite;transform-origin:50% 22%}
+.i-rise{animation:irise 2s ease-in-out infinite;transform-origin:50% 100%}
+.i-blink{animation:iblink 3.4s linear infinite}
+@keyframes idraw{0%{stroke-dashoffset:var(--dl)}55%,100%{stroke-dashoffset:0}}
+.i-draw{stroke-dasharray:var(--dl);animation:idraw 3s ease-in-out infinite}
+.i-d1{animation-delay:.25s}.i-d2{animation-delay:.5s}.i-d3{animation-delay:.75s}.i-d4{animation-delay:1s}
+
+/* ══════════ PASSOS ══════════ */
+.steps{display:grid;gap:clamp(13px,2vw,40px)}
+.step{display:flex;flex-direction:column;gap:clamp(6px,.8vw,13px);transition:transform .45s cubic-bezier(.2,.9,.3,1)}
+.step .n{font-family:var(--mono);font-size:clamp(9px,.76vw,12px);letter-spacing:.18em;opacity:.5;transition:opacity .35s}
+.step .t{font-family:var(--disp);font-weight:800;font-stretch:118%;text-transform:uppercase;
+  font-size:clamp(14px,1.7vw,29px);line-height:1.02;letter-spacing:-.022em;transition:color .35s}
+.step .d{font-size:clamp(10.4px,.92vw,15px);line-height:1.42;opacity:.68;max-width:24ch;transition:opacity .35s}
+.step .bl{position:relative;height:3px;background:currentColor;opacity:.18;overflow:hidden;border-radius:2px}
+.step .bl>i{position:absolute;inset:0;background:var(--iris);transform:scaleX(0);transform-origin:left;
+  transition:transform .66s cubic-bezier(.2,.82,.24,1)}
+.step.act .bl{opacity:1}
+.step.act .bl>i,.step.done .bl>i{transform:scaleX(1)}
+.step.done .bl{opacity:.5}
+.step .ic{opacity:.38;transition:opacity .35s,transform .45s cubic-bezier(.2,1.1,.3,1)}
+.step.act .ic{opacity:1;transform:scale(1.14)}
+.step.done .ic{opacity:.66}
+.step.act .n{opacity:.92}.step.act .d{opacity:.95}
+.step.act .t{color:var(--iris-l)}
+.s.paper .step.act .t{color:var(--iris-d)}
+.s.paper .step .bl>i{background:var(--iris)}
+
+/* ══════════ CTA ══════════ */
+.cta{display:inline-flex;align-items:center;gap:clamp(9px,1vw,16px);align-self:flex-start;
+  background:var(--lime);color:var(--lab-ink);border:none;cursor:none;
+  font-family:var(--disp);font-weight:800;font-stretch:112%;text-transform:uppercase;
+  font-size:clamp(11.5px,1.12vw,19px);letter-spacing:-.005em;text-decoration:none;
+  padding:clamp(11px,1.15vw,20px) clamp(18px,1.9vw,34px);border-radius:999px;
+  transition:transform .22s cubic-bezier(.2,1.1,.3,1),box-shadow .22s,background .18s}
+.cta:hover{transform:translateY(-3px);box-shadow:0 16px 34px -14px rgba(0,0,0,.6)}
+.cta:active{transform:translateY(0)}
+.cta .ar{width:1.05em;height:1.05em;flex:none}
+.cta .ar svg{width:100%;height:100%;display:block}
+.cta.ir{background:var(--iris);color:#fff}
+.cta.gh{background:transparent;color:inherit;box-shadow:inset 0 0 0 1.5px currentColor}
+.cta.gh:hover{background:var(--paper);color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--paper)}
+.s.paper .cta.gh:hover{background:var(--ink);color:var(--paper);box-shadow:inset 0 0 0 1.5px var(--ink)}
+.s.iris .cta.gh:hover,.s.lime .cta.gh:hover{background:var(--ink-d);color:var(--paper);box-shadow:inset 0 0 0 1.5px var(--ink-d)}
+.ctas{display:flex;gap:clamp(9px,1.1vw,18px);flex-wrap:wrap;align-items:center}
+.s.on .cta{animation:fadeup .6s cubic-bezier(.2,.85,.3,1) .6s backwards}
+
+/* ══════════ CHIPS ══════════ */
+.chips{display:flex;flex-wrap:wrap;gap:clamp(6px,.7vw,12px)}
+.chip{font-family:var(--mono);font-size:clamp(9px,.78vw,12.4px);letter-spacing:.12em;text-transform:uppercase;
+  padding:clamp(6px,.62vw,10px) clamp(11px,1.05vw,18px);border-radius:999px;
+  box-shadow:inset 0 0 0 1px currentColor;opacity:.68;transition:.22s;white-space:nowrap}
+.chip:hover{opacity:1;background:var(--paper);color:var(--ink);box-shadow:inset 0 0 0 1px var(--paper);transform:translateY(-2px)}
+.s.paper .chip:hover{background:var(--ink);color:var(--paper);box-shadow:inset 0 0 0 1px var(--ink)}
+.chip.on{opacity:1;background:var(--iris);color:#fff;box-shadow:none}
+.chip.on:hover{color:#fff;background:var(--iris-l)}
+.chip.lm{opacity:1;background:var(--lime);color:var(--lab-ink);box-shadow:none}
+.chip.lm:hover{color:var(--lab-ink);background:var(--lime)}
+
+/* ══════════ RODAPÉ ══════════ */
+.fo{flex:none;display:flex;justify-content:space-between;align-items:center;gap:16px;
+  border-top:1px solid currentColor;padding-top:clamp(8px,.95vw,14px)}
+.fo .bd{display:flex;align-items:center;gap:clamp(8px,.9vw,15px);opacity:.78}
+.fo .bd svg{height:clamp(11px,1.15vw,17px);width:auto;display:block}
+.fo .bd .x{font-family:var(--mono);font-size:clamp(8px,.7vw,10.4px);opacity:.55}
+.fo .bd span.n{font-family:var(--mono);font-size:clamp(8px,.7vw,10.4px);letter-spacing:.18em}
+.nav{display:flex;align-items:center;gap:clamp(6px,.75vw,12px)}
+.nb{width:clamp(26px,2.3vw,34px);height:clamp(26px,2.3vw,34px);border-radius:50%;cursor:none;
+  background:transparent;color:currentColor;box-shadow:inset 0 0 0 1px currentColor;
+  display:grid;place-items:center;transition:.2s;opacity:.72}
+.nb svg{width:42%;height:42%}
+.nb:hover{opacity:1;background:var(--iris);color:#fff;box-shadow:none;transform:scale(1.12)}
+.pg{font-family:var(--mono);font-size:clamp(9px,.78vw,12px);letter-spacing:.14em;min-width:5.4em;text-align:center;opacity:.72}
+.pg b{opacity:1}
+.mbtn{background:none;border:none;cursor:none;color:currentColor;font-family:var(--mono);
+  font-size:clamp(8.6px,.72vw,11px);letter-spacing:.18em;text-transform:uppercase;opacity:.6;transition:.2s;
+  display:flex;align-items:center;gap:.6em}
+.mbtn:hover{opacity:1;color:var(--iris-l)}
+.mbtn svg{width:1.1em;height:1.1em}
+.pro{position:fixed;top:0;left:0;height:3px;width:0;background:var(--iris);z-index:200;
+  transition:width .55s cubic-bezier(.2,.85,.3,1);box-shadow:0 0 14px rgba(106,92,255,.8)}
+
+/* ══════════ PRINTS DA PLATAFORMA ══════════ */
+.pic .img{position:absolute;inset:0;overflow:hidden}
+.pic .img img{width:100%;height:100%;object-fit:cover;object-position:top left;transform:scale(1.08)}
+.s.pic.on .img img{animation:kb 11s cubic-bezier(.2,.6,.3,1) forwards}
+@keyframes kb{to{transform:scale(1)}}
+.pic .scrim{position:absolute;inset:0;background:
+  linear-gradient(80deg,rgba(6,7,15,.95) 10%,rgba(6,7,15,.6) 44%,rgba(6,7,15,.05) 86%),
+  linear-gradient(0deg,rgba(6,7,15,.95) 0,rgba(6,7,15,.42) 18%,transparent 38%)}
+.pic .cap{position:relative;z-index:2;padding:var(--pad);width:100%;display:flex;flex-direction:column;gap:clamp(10px,1.4vw,22px)}
+.pic .fo{position:relative;z-index:2;margin:0 var(--pad) clamp(14px,2vw,26px)}
+/* moldura de navegador */
+.frame{position:relative;border-radius:clamp(8px,.9vw,14px);overflow:hidden;background:#fff;
+  box-shadow:0 30px 70px -30px rgba(0,0,0,.75),0 0 0 1px rgba(247,248,253,.14)}
+.s.paper .frame{box-shadow:0 30px 70px -34px rgba(11,13,30,.42),0 0 0 1px rgba(11,13,30,.10)}
+.frame .tb{display:flex;align-items:center;gap:.6em;padding:clamp(6px,.65vw,11px) clamp(9px,.95vw,16px);
+  background:#EDEFF7;border-bottom:1px solid #DCE0EE}
+.frame .tb i{width:clamp(6px,.55vw,9px);height:clamp(6px,.55vw,9px);border-radius:50%;background:#C9CEE0;display:block}
+.frame .tb span{margin-left:.8em;font-family:var(--mono);font-size:clamp(7px,.62vw,10px);letter-spacing:.12em;
+  color:#8A90AC;text-transform:lowercase;background:#fff;border-radius:999px;padding:.35em 1em;flex:1;max-width:34ch}
+.frame img{width:100%;display:block}
+.s.on .frame{animation:rise .85s cubic-bezier(.16,.86,.26,1) .18s backwards}
+@keyframes rise{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
+.shot{position:relative;overflow:hidden;background:var(--ink-d);border-radius:clamp(6px,.7vw,12px);
+  box-shadow:0 24px 60px -30px rgba(0,0,0,.7),0 0 0 1px rgba(247,248,253,.12)}
+.s.paper .shot{box-shadow:0 24px 60px -32px rgba(11,13,30,.4),0 0 0 1px rgba(11,13,30,.09)}
+.shot img{width:100%;height:100%;object-fit:cover;object-position:top left;display:block;transition:transform .8s cubic-bezier(.16,.86,.26,1)}
+.shot:hover img{transform:scale(1.04)}
+.s.on .shot{animation:rise .85s cubic-bezier(.16,.86,.26,1) .2s backwards}
+.shot .cp{position:absolute;left:0;bottom:0;right:0;padding:1.6em 1.05em .8em;z-index:2;
+  background:linear-gradient(0deg,rgba(6,7,15,.88),transparent);
+  font-family:var(--mono);font-size:clamp(7.4px,.66vw,10px);letter-spacing:.16em;text-transform:uppercase;
+  color:rgba(247,248,253,.95)}
+.gal{display:grid;gap:clamp(7px,.9vw,15px)}
+.ratio{aspect-ratio:1834/1137}
+.ratio.tall{aspect-ratio:1834/900}
+.ratio.wide{aspect-ratio:1834/700}
+
+/* ══════════ FLUXO ══════════ */
+.flow{display:flex;align-items:stretch;gap:0;width:100%}
+.fnode{flex:1;display:flex;flex-direction:column;gap:clamp(6px,.8vw,12px);padding:clamp(10px,1.3vw,22px) clamp(9px,1.1vw,20px);
+  position:relative;transition:background .35s}
+.fnode+.fnode{border-left:1px solid rgba(247,248,253,.22)}
+.s.paper .fnode+.fnode{border-left-color:rgba(11,13,30,.16)}
+.s.iris .fnode+.fnode{border-left-color:rgba(255,255,255,.3)}
+.fnode .fn{font-family:var(--disp);font-weight:900;font-stretch:125%;font-size:clamp(20px,2.6vw,44px);
+  line-height:.86;color:var(--iris-l);opacity:.34;transition:opacity .35s,color .35s}
+.s.paper .fnode .fn{color:var(--iris)}
+.s.iris .fnode .fn{color:#fff}
+.fnode .ft{font-family:var(--disp);font-weight:800;font-stretch:118%;text-transform:uppercase;
+  font-size:clamp(12px,1.35vw,22px);line-height:1.04;letter-spacing:-.02em}
+.fnode .fd{font-size:clamp(9.8px,.88vw,14px);line-height:1.4;opacity:.66}
+.fnode.act{background:rgba(106,92,255,.16)}
+.s.iris .fnode.act{background:rgba(255,255,255,.16)}
+.fnode.act .fn{opacity:1}
+@media(max-width:900px){.flow{flex-direction:column}.fnode+.fnode{border-left:none;border-top:1px solid currentColor}}
+
+/* ══════════ DUAS COLUNAS ══════════ */
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:clamp(14px,2.4vw,48px);align-items:start}
+.duo .hd{display:flex;align-items:center;gap:clamp(8px,1vw,16px);padding-bottom:clamp(8px,1vw,15px);
+  border-bottom:2px solid currentColor;margin-bottom:clamp(8px,1.1vw,18px)}
+.duo .hd b{font-family:var(--disp);font-weight:900;font-stretch:118%;text-transform:uppercase;
+  font-size:clamp(15px,1.9vw,32px);letter-spacing:-.028em}
+.li{display:flex;gap:clamp(8px,.9vw,15px);align-items:flex-start;padding:clamp(6px,.72vw,12px) 0;
+  font-size:clamp(10.6px,.98vw,16px);line-height:1.36;opacity:.82;transition:.2s}
+.li:hover{opacity:1;transform:translateX(4px)}
+.li .bt{width:.5em;height:.5em;border-radius:50%;background:var(--iris);flex:none;margin-top:.5em}
+.li.lm .bt{background:var(--lime)}
+.li.wn .bt{background:var(--wn)}
+.li.tl .bt{background:var(--teal)}
+@media(max-width:900px){.duo{grid-template-columns:1fr}}
+
+/* ══════════ GANTT ══════════ */
+.gantt{display:flex;flex-direction:column;gap:clamp(7px,.85vw,14px)}
+.gr{display:grid;grid-template-columns:clamp(80px,10vw,170px) 1fr;gap:clamp(10px,1.4vw,24px);align-items:center}
+.gr .gk{font-family:var(--mono);font-size:clamp(8.4px,.72vw,11.4px);letter-spacing:.14em;text-transform:uppercase;opacity:.62}
+.gt{position:relative;height:clamp(28px,3vw,50px);background:rgba(247,248,253,.07);border-radius:4px;overflow:hidden}
+.s.paper .gt{background:rgba(11,13,30,.055)}
+.gt>i{position:absolute;top:0;bottom:0;background:var(--iris);border-radius:4px;display:flex;align-items:center;
+  padding:0 clamp(8px,.9vw,15px);transform:scaleX(0);transform-origin:left;overflow:hidden;
+  font-family:var(--disp);font-weight:800;font-stretch:112%;font-size:clamp(9.4px,.88vw,14px);
+  color:#fff;text-transform:uppercase;letter-spacing:-.01em;white-space:nowrap}
+.s.on .gt>i{animation:gx .9s cubic-bezier(.2,.85,.3,1) both}
+@keyframes gx{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+.s.on .gr:nth-child(1) .gt>i{animation-delay:.35s}.s.on .gr:nth-child(2) .gt>i{animation-delay:.5s}
+.s.on .gr:nth-child(3) .gt>i{animation-delay:.65s}.s.on .gr:nth-child(4) .gt>i{animation-delay:.8s}
+.s.on .gr:nth-child(5) .gt>i{animation-delay:.95s}
+.gt>i.b{background:var(--blue)}.gt>i.c{background:var(--teal);color:var(--ink-d)}
+.gt>i.d{background:var(--lime);color:var(--lab-ink)}
+
+/* ══════════ SVG ══════════ */
+.fig{width:100%;position:relative}
+.fig>svg{width:100%;height:auto;display:block;overflow:visible}
+.axl{font-family:'Space Mono',monospace;font-size:7.4px;letter-spacing:.14em;text-transform:uppercase;fill:currentColor;opacity:.5}
+.axt{font-family:'Archivo',sans-serif;font-weight:800;font-size:9.6px;fill:currentColor;letter-spacing:-.01em}
+.dr{stroke-dasharray:var(--dl);stroke-dashoffset:var(--dl)}
+.s.on .dr{animation:drw 1.5s cubic-bezier(.3,.8,.3,1) .35s forwards}
+@keyframes drw{to{stroke-dashoffset:0}}
+.s.on .gb{animation:gbup .9s cubic-bezier(.2,.85,.3,1) backwards;transform-origin:50% 100%}
+@keyframes gbup{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+
+/* ══════════ ÍNDICE ══════════ */
+.menu{position:fixed;inset:0;background:var(--ink-d);z-index:300;display:none;
+  padding:clamp(24px,4.6vw,72px) var(--pad);overflow:auto}
+.menu.open{display:flex;flex-direction:column;animation:mf .3s ease}
+@keyframes mf{from{opacity:0}to{opacity:1}}
+.mh{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:clamp(16px,2.4vw,38px)}
+.mh .t{font-family:var(--disp);font-weight:900;font-stretch:118%;text-transform:uppercase;
+  font-size:clamp(16px,2vw,32px);letter-spacing:-.03em;color:var(--paper)}
+.mh button{background:none;border:none;cursor:none;color:var(--paper);font-family:var(--mono);
+  font-size:clamp(9px,.8vw,12px);letter-spacing:.18em;text-transform:uppercase;opacity:.6;transition:.2s}
+.mh button:hover{opacity:1;color:var(--iris-l)}
+.ml{list-style:none;columns:2;column-gap:clamp(24px,4vw,80px)}
+@media(max-width:800px){.ml{columns:1}}
+.ml li{display:flex;justify-content:space-between;align-items:baseline;gap:14px;cursor:none;
+  padding:clamp(6px,.72vw,11px) 0;border-bottom:1px solid rgba(247,248,253,.13);break-inside:avoid;transition:.16s}
+.ml li:hover{padding-left:10px;border-color:var(--iris)}
+.ml li:hover .tt{color:var(--iris-l)}
+.ml .nn{font-family:var(--mono);font-size:clamp(8.6px,.72vw,11px);color:rgba(247,248,253,.4);letter-spacing:.14em}
+.ml .tt{font-size:clamp(11px,.98vw,15.4px);color:rgba(247,248,253,.82);text-align:right;transition:.16s}
+.ml li.hd .tt{font-family:var(--disp);font-weight:900;font-stretch:118%;text-transform:uppercase;color:var(--paper);letter-spacing:-.01em}
+.ml li.hd .nn{color:var(--iris-l)}
+
+/* ══════════ RESPONSIVO / IMPRESSÃO ══════════ */
+@media(max-width:900px){
+  .sp,.sp-a,.sp-b,.g2,.g3,.g4{grid-template-columns:1fr}
+  .g4.keep,.g3.keep{grid-template-columns:repeat(2,1fr)}
+  .body{gap:20px}
+  .say{max-width:36ch}
+  .pic .scrim{background:linear-gradient(0deg,rgba(6,7,15,.97) 26%,rgba(6,7,15,.52) 66%,rgba(6,7,15,.12) 100%)}
+}
+@media print{
+  body{overflow:visible;cursor:auto}#cur,#dot,#ptr,.pro,.menu{display:none}
+  .deck{position:static}
+  .s{position:relative;inset:auto;opacity:1!important;visibility:visible!important;page-break-after:always;height:100vh}
+  .s *{animation:none!important;transform:none!important}
+  .s::before{opacity:1}
+}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.001s!important;transition-duration:.001s!important}}
+:focus-visible{outline:3px solid var(--iris);outline-offset:3px}
+</style>
+</head>
+<body>
+<div class="pro" id="pro"></div>
+<div id="cur"><span class="rg"></span><svg class="dsh" viewBox="0 0 52 52"><circle cx="26" cy="26" r="25"/></svg></div>
+<div id="dot"></div>
+<div id="ptr"><svg viewBox="0 0 15 18" fill="none"><path d="M1.2 1.1 13 9.4l-5 .9 2.6 5.4-2.3 1.1L5.7 11l-4.5 3z" fill="#6A5CFF" stroke="#F7F8FD" stroke-width="1.1" stroke-linejoin="round"/></svg></div>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+<symbol id="ar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h15"/><path d="m13.5 6 6 6-6 6"/></symbol>
+<symbol id="al" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12H5"/><path d="m10.5 6-6 6 6 6"/></symbol>
+<symbol id="mn" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h12"/></symbol>
+<symbol id="ariuno" viewBox="0 0 100 100" fill="none"><path d="M25,80 C10,80 15,55 30,55 C42,55 45,68 40,80 L75,15 L95,75" stroke="currentColor" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/><path d="M40,80 L95,75" stroke="currentColor" stroke-width="12" stroke-linecap="round"/></symbol>
+
+<symbol id="k-board" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+  <rect x="2.5" y="4.5" width="27" height="23" rx="3"/><path d="M11.5 4.5v23M20.5 4.5v23"/>
+  <rect x="4.6" y="8" width="4.8" height="6" rx="1.2" fill="currentColor" stroke="none" class="i-pulse"/>
+  <rect x="13.6" y="8" width="4.8" height="9" rx="1.2" fill="currentColor" stroke="none" class="i-pulse i-d2"/>
+  <rect x="22.6" y="8" width="4.8" height="4" rx="1.2" fill="currentColor" stroke="none" class="i-pulse i-d3"/></symbol>
+
+<symbol id="k-clock" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+  <circle cx="16" cy="17" r="12.5"/><path d="M16 9.5V17l5 3.2" class="i-spin" style="transform-origin:16px 17px"/>
+  <path d="M11.5 2.5h9"/><circle cx="16" cy="17" r="12" class="i-ring" opacity=".4"/></symbol>
+
+<symbol id="k-check" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M27.5 14.8V16a12.5 12.5 0 1 1-7.4-11.4"/><path d="m10.5 15.5 5 5L29 7.4" class="i-draw" style="--dl:40"/></symbol>
+
+<symbol id="k-chart" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M2.5 29h27"/>
+  <rect x="4.5" y="18" width="5" height="11" rx="1.4" fill="currentColor" stroke="none" class="i-rise"/>
+  <rect x="13.5" y="12" width="5" height="17" rx="1.4" fill="currentColor" stroke="none" class="i-rise i-d1"/>
+  <rect x="22.5" y="5" width="5" height="24" rx="1.4" fill="currentColor" stroke="none" class="i-rise i-d2"/></symbol>
+
+<symbol id="k-team" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+  <circle cx="12" cy="10" r="5" class="i-bob"/><path d="M2.5 27.5a9.5 9.5 0 0 1 19 0"/>
+  <path d="M22 6.4a5 5 0 0 1 0 9.2M24.5 27.5a9.6 9.6 0 0 0-3.2-7.2" class="i-pulse i-d2"/></symbol>
+
+<symbol id="k-ai" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+  <rect x="5.5" y="9.5" width="21" height="17" rx="4"/><path d="M16 9.5v-5M12 3.5h8"/>
+  <circle cx="11.8" cy="17.5" r="1.7" fill="currentColor" stroke="none" class="i-blink"/>
+  <circle cx="20.2" cy="17.5" r="1.7" fill="currentColor" stroke="none" class="i-blink i-d2"/>
+  <path d="M12.5 22h7" class="i-pulse"/><path d="M2.5 15v5M29.5 15v5"/></symbol>
+
+<symbol id="k-form" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+  <rect x="5.5" y="3.5" width="21" height="25" rx="3"/>
+  <path d="M10.5 11h11" class="i-flow"/><path d="M10.5 16h11" class="i-flow i-d1"/><path d="M10.5 21h6" class="i-flow i-d2"/></symbol>
+
+<symbol id="k-shield" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M16 2.5 4.5 7.2v9.1c0 7 4.9 11.4 11.5 13.2 6.6-1.8 11.5-6.2 11.5-13.2V7.2Z"/>
+  <path d="m11 16.2 3.6 3.6L21.5 13" class="i-draw" style="--dl:24"/></symbol>
+
+<symbol id="k-phone" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+  <rect x="8.5" y="2.5" width="15" height="27" rx="3.6"/><path d="M14 5.6h4"/>
+  <circle cx="16" cy="24.6" r="1.4" fill="currentColor" stroke="none" class="i-pulse"/>
+  <rect x="11.5" y="9" width="9" height="2.4" rx="1.2" fill="currentColor" stroke="none" class="i-pulse i-d1"/>
+  <rect x="11.5" y="14" width="6" height="2.4" rx="1.2" fill="currentColor" stroke="none" class="i-pulse i-d3"/></symbol>
+
+<symbol id="k-money" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+  <rect x="2.5" y="7" width="27" height="18" rx="3"/><circle cx="16" cy="16" r="4.2" class="i-pulse"/>
+  <path d="M7 12.5v7M25 12.5v7"/></symbol>
+
+<symbol id="k-bell" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+  <g class="i-swing"><path d="M25 12a9 9 0 1 0-18 0c0 7-3 9-3 9h24s-3-2-3-9Z"/></g>
+  <path d="M13.4 26a3 3 0 0 0 5.2 0" class="i-pulse"/></symbol>
+
+<symbol id="k-trophy" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M9.5 3.5h13v8a6.5 6.5 0 0 1-13 0Z" class="i-bob"/>
+  <path d="M9.5 6H5.5a4.5 4.5 0 0 0 4 4.5M22.5 6h4a4.5 4.5 0 0 1-4 4.5"/>
+  <path d="M16 18v5M11 28.5h10l-1-5.5h-8Z"/></symbol>
+
+<symbol id="k-link" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M13 19a5.5 5.5 0 0 0 8 .4l4.5-4.5a5.5 5.5 0 0 0-7.8-7.8L15.4 9.5"/>
+  <path d="M19 13a5.5 5.5 0 0 0-8-.4l-4.5 4.5a5.5 5.5 0 0 0 7.8 7.8l2.2-2.2" class="i-pulse"/></symbol>
+
+<symbol id="k-rocket" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+  <g class="i-bob"><path d="M16 2.5c5.4 4 8 9.4 8 15.2l-3.6 4.4h-8.8L8 17.7C8 11.9 10.6 6.5 16 2.5Z"/>
+  <circle cx="16" cy="13" r="3" class="i-pulse"/></g>
+  <path d="M12.6 24.5c-1.2 2-1.2 4 0 5.5M19.4 24.5c1.2 2 1.2 4 0 5.5" class="i-flow"/></symbol>
+
+<symbol id="k-layers" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+  <path d="m16 3 13 6.5-13 6.5L3 9.5 16 3Z" class="i-bob"/><path d="m3 16 13 6.5L29 16" class="i-pulse i-d1"/><path d="m3 22.5 13 6.5 13-6.5" class="i-pulse i-d3"/></symbol>
+
+<symbol id="k-bulb" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M16 3a9.5 9.5 0 0 0-5.6 17.2c1 .8 1.6 1.9 1.6 3.1v.7h8v-.7c0-1.2.6-2.3 1.6-3.1A9.5 9.5 0 0 0 16 3Z" class="i-pulse"/>
+  <path d="M12.5 27h7M14 30h4"/></symbol>
+
+<symbol id="k-gantt" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M2.5 3.5v25h27"/>
+  <rect x="6" y="7" width="12" height="3.6" rx="1.8" fill="currentColor" stroke="none" class="i-pulse"/>
+  <rect x="11" y="14" width="14" height="3.6" rx="1.8" fill="currentColor" stroke="none" class="i-pulse i-d2"/>
+  <rect x="8" y="21" width="9" height="3.6" rx="1.8" fill="currentColor" stroke="none" class="i-pulse i-d3"/></symbol>
+
+<symbol id="k-lock" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+  <rect x="5.5" y="13.5" width="21" height="16" rx="3.4"/>
+  <path d="M10.5 13.5V9a5.5 5.5 0 0 1 11 0v4.5" class="i-bob"/>
+  <circle cx="16" cy="21.5" r="2" fill="currentColor" stroke="none" class="i-pulse"/></symbol>
+</defs></svg>
+
+<main class="deck" id="deck">
+
+<!-- ═══ 01 · CAPA ═══ -->
+<section class="s deep on">
+  <div class="meta"><span class="l">Apresentação comercial · Plataforma Ariuno</span><span class="r">75 LAB · 2026</span></div>
+  <div class="body">
+    <div class="sp">
+      <div class="stack" style="gap:clamp(16px,2.2vw,34px)">
+        <div class="fu" style="display:flex;align-items:center;gap:clamp(12px,1.6vw,26px)">
+          <span class="ic" style="color:var(--iris-l);width:clamp(30px,3vw,48px);height:clamp(30px,3vw,48px)"><svg><use href="#ariuno"/></svg></span>
+          <span style="font-family:var(--disp);font-weight:900;font-stretch:118%;font-size:clamp(22px,2.6vw,44px);letter-spacing:-.045em">ariuno</span>
+          <span style="width:1px;height:clamp(24px,2.6vw,44px);background:currentColor;opacity:.3"></span>
+          <img src="assets/75lab-wordmark-paper.png" alt="75 LAB" style="height:clamp(15px,1.7vw,27px)">
+        </div>
+        <h1 class="mega sm"><span class="ln"><i>Uma plataforma.</i></span><span class="ln"><i><em>Toda</em> a sua</i></span><span class="ln"><i>operação.</i></span></h1>
+        <p class="say fu">O sistema que a <b>75 LAB</b> construiu para tocar a própria casa — do <b>briefing</b> ao <b>relatório do cliente</b>. Agora aberto para a sua empresa.</p>
+        <div class="ctas">
+          <button class="cta" data-go="5">Ver a plataforma <span class="ar"><svg><use href="#ar"/></svg></span></button>
+          <button class="cta gh" data-go="22">Ir direto ao investimento</button>
+        </div>
+      </div>
+      <div class="gal" style="gap:clamp(8px,1vw,16px)">
+        <div class="frame fu">
+          <div class="tb"><i></i><i></i><i></i><span>ariuno.com.br</span></div>
+          <img src="assets/shots/04-kanban.png" alt="Quadro Kanban do Ariuno com tarefas em execução">
+        </div>
+        <div class="chips fu"><span class="chip on">Kanban</span><span class="chip">Gantt</span><span class="chip">Horas</span><span class="chip">Aprovações</span><span class="chip">Portal do cliente</span><span class="chip lm">IA</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 02 · CHAP PROBLEMA ═══ -->
+<section class="s iris">
+  <div class="meta"><span class="l">Capítulo 01</span><span class="r">O problema</span></div>
+  <div class="body">
+    <h2 class="mega"><span class="ln"><i>O problema</i></span><span class="ln"><i>nunca foi</i></span><span class="ln"><i>falta de <em>esforço.</em></i></span></h2>
+    <p class="say" style="font-size:clamp(15px,1.9vw,32px);max-width:24ch">É falta de <b>sistema</b>.</p>
+  </div>
+</section>
+
+<!-- ═══ 03 · 14 ABAS ═══ -->
+<section class="s paper">
+  <div class="meta"><span class="l">Diagnóstico</span><span class="r">Onde a informação mora hoje</span></div>
+  <div class="body">
+    <h2 class="mega xs"><span class="ln"><i>A sua operação não</i></span><span class="ln"><i>roda num sistema.</i></span><span class="ln"><i>Roda em <em>14 abas</em> abertas.</i></span></h2>
+    <div class="sp-b">
+      <div class="rows thin">
+        <div class="row"><span class="k">O briefing chegou por…</span><span class="v">WhatsApp</span></div>
+        <div class="row"><span class="k">O prazo está em…</span><span class="v">Planilha</span></div>
+        <div class="row"><span class="k">A aprovação ficou em…</span><span class="v">E-mail</span></div>
+        <div class="row"><span class="k">O arquivo final está no…</span><span class="v">Drive</span></div>
+        <div class="row"><span class="k">As horas gastas estão…</span><span class="v"><em>Em lugar nenhum</em></span></div>
+        <div class="row"><span class="k">E o histórico está…</span><span class="v"><em>Na cabeça de alguém</em></span></div>
+      </div>
+      <p class="say">Nenhuma dessas ferramentas é ruim. O problema é que <b>nenhuma delas conversa</b> — e alguém do time paga essa conta, todo dia, em retrabalho.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 04 · A CONTA ═══ -->
+<section class="s deep">
+  <div class="meta"><span class="l">A conta que ninguém faz</span><span class="r">Faça com o seu time</span></div>
+  <div class="body">
+    <span class="kicker">Quanto custa procurar informação</span>
+    <div class="g g3 keep">
+      <div class="bn fu"><span class="num mid"><span data-n="20">0</span></span><span class="lb">pessoas no time</span></div>
+      <div class="bn fu"><span class="num mid"><span data-n="1">0</span><u>h/dia</u></span><span class="lb">perdida em status, procura e retrabalho</span></div>
+      <div class="bn fu"><span class="num mid"><span class="pfx">R$</span><span data-n="45">0</span></span><span class="lb">custo médio da hora do time</span></div>
+    </div>
+    <div class="sp">
+      <p class="say">Uma hora por pessoa, por dia. É o que se perde perguntando <b>“em que pé está?”</b>, refazendo o que já existia e montando relatório na mão.</p>
+      <div class="rows">
+        <div class="row hi"><span class="k">Custo por mês</span><span class="v"><em>R$ <span data-n="18900" data-f>0</span></em></span></div>
+        <div class="row"><span class="k">Custo por ano</span><span class="v">R$ <span data-n="226800" data-f>0</span></span></div>
+      </div>
+    </div>
+    <p class="disc">Cenário ilustrativo: 20 pessoas × 1h/dia × 21 dias úteis × R$ 45/hora. Troque pelos números do seu time — a conclusão costuma ser a mesma.</p>
+  </div>
+</section>
+
+<!-- ═══ 05 · CHAP SOLUÇÃO ═══ -->
+<section class="s">
+  <div class="meta"><span class="l">Capítulo 02</span><span class="r">A plataforma</span></div>
+  <div class="body">
+    <div style="display:flex;align-items:center;gap:clamp(12px,1.6vw,26px)">
+      <span class="ic big"><svg><use href="#ariuno"/></svg></span>
+      <span class="kicker">Feito por quem opera</span>
+    </div>
+    <h2 class="mega"><span class="ln"><i>Ariuno.</i></span><span class="ln"><i>Do briefing ao</i></span><span class="ln"><i><em>relatório</em> do cliente.</i></span></h2>
+    <p class="say w">Não é um software que a gente comprou para revender. É a plataforma que <b>roda a 75 LAB todos os dias</b> — com 19 usuários, 97 clientes e centenas de entregas por mês. Cada tela nasceu de um problema real de operação.</p>
+    <div class="ctas"><button class="cta ir" data-go="6">Ver funcionando <span class="ar"><svg><use href="#ar"/></svg></span></button></div>
+  </div>
+</section>
+
+<!-- ═══ 06 · O QUE É ═══ -->
+<section class="s paper">
+  <div class="meta"><span class="l">Visão geral</span><span class="r">Uma tela para o dia inteiro</span></div>
+  <div class="body">
+    <div class="sp-a">
+      <div class="stack">
+        <span class="ic"><svg><use href="#k-chart"/></svg></span>
+        <h2 class="mega xs"><span class="ln"><i>O time inteiro</i></span><span class="ln"><i>em <em>tempo real.</em></i></span></h2>
+        <p class="say sm">Horas trabalhadas, entregas no prazo, tarefas atrasadas, ranking por pessoa, termômetro por departamento. Tudo do dado real — nada de planilha paralela.</p>
+        <div class="chips"><span class="chip on">Hoje</span><span class="chip">Semana</span><span class="chip">Mês</span><span class="chip">Trimestre</span><span class="chip">Por cliente</span><span class="chip">Por pessoa</span></div>
+      </div>
+      <div class="frame">
+        <div class="tb"><i></i><i></i><i></i><span>ariuno.com.br · visão geral</span></div>
+        <img src="assets/shots/02-visao-geral.png" alt="Painel de visão geral do Ariuno com indicadores do time">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 07 · KANBAN SANGRIA ═══ -->
+<section class="s pic">
+  <div class="img"><img src="assets/shots/04-kanban.png" alt="Quadro Kanban do Ariuno"></div>
+  <div class="scrim"></div>
+  <div class="cap">
+    <span class="kicker">O quadro</span>
+    <h2 class="mega sm"><span class="ln"><i>Todo mundo vê</i></span><span class="ln"><i>a <em>mesma verdade.</em></i></span></h2>
+    <p class="say">Colunas que espelham o seu processo — não o processo de um software gringo. Cada card carrega cliente, prazo, responsável, horas, checklist, aprovação e histórico.</p>
+  </div>
+</section>
+
+<!-- ═══ 08 · FLUXO ═══ -->
+<section class="s deep">
+  <div class="meta"><span class="l">O ciclo completo</span><span class="r">Uma plataforma, seis etapas</span></div>
+  <div class="body">
+    <h2 class="mega xs"><span class="ln"><i>Entra briefing.</i></span><span class="ln"><i>Sai <em>relatório</em> — e nota fiscal.</i></span></h2>
+    <div class="flow" data-flow>
+      <div class="fnode"><span class="fn">01</span><span class="ft">Briefing</span><span class="fd">Formulário público ou solicitação interna. Vira tarefa sozinho.</span></div>
+      <div class="fnode"><span class="fn">02</span><span class="ft">Planejamento</span><span class="fd">Projeto, prazo, responsável, checklist e modelo pronto.</span></div>
+      <div class="fnode"><span class="fn">03</span><span class="ft">Execução</span><span class="fd">Kanban, timer por tarefa, comentários e menções.</span></div>
+      <div class="fnode"><span class="fn">04</span><span class="ft">Aprovação</span><span class="fd">Interna e do cliente, com histórico de quem aprovou o quê.</span></div>
+      <div class="fnode"><span class="fn">05</span><span class="ft">Entrega</span><span class="fd">Anexos, link de entrega e portal do cliente.</span></div>
+      <div class="fnode"><span class="fn">06</span><span class="ft">Relatório</span><span class="fd">Horas × contrato, PDF e link público — em um clique.</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 09 · 5 VISÕES ═══ -->
+<section class="s paper">
+  <div class="meta"><span class="l">O mesmo dado, cinco leituras</span><span class="r">Quadros</span></div>
+  <div class="body">
+    <h2 class="mega xs"><span class="ln"><i>Cada cabeça enxerga</i></span><span class="ln"><i>de um jeito. <em>O dado é um só.</em></i></span></h2>
+    <div class="sp-b">
+      <div class="frame">
+        <div class="tb"><i></i><i></i><i></i><span>ariuno.com.br · gantt</span></div>
+        <img src="assets/shots/06-gantt.png" alt="Visão de Gantt do Ariuno">
+      </div>
+      <div class="g" style="gap:clamp(9px,1.1vw,16px)">
+        <div class="cd fu"><span class="ic sm"><svg><use href="#k-board"/></svg></span><span class="t">Kanban</span><span class="d">Para quem executa. Arrasta, entrega, próxima.</span></div>
+        <div class="cd fu"><span class="ic sm"><svg><use href="#k-form"/></svg></span><span class="t">Lista</span><span class="d">Para quem cobra. Filtra, ordena, resolve.</span></div>
+        <div class="cd fu"><span class="ic sm"><svg><use href="#k-gantt"/></svg></span><span class="t">Gantt</span><span class="d">Para quem planeja. Dependência e prazo na régua.</span></div>
+        <div class="cd fu"><span class="ic sm"><svg><use href="#k-clock"/></svg></span><span class="t">Calendário</span><span class="d">Para quem agenda. Feriados e entregas no mês.</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 10 · TEMPO ═══ -->
+<section class="s">
+  <div class="meta"><span class="l">Hora trabalhada</span><span class="r">O ativo mais caro da sua empresa</span></div>
+  <div class="body">
+    <div class="sp-a">
+      <div class="stack">
+        <span class="ic"><svg><use href="#k-clock"/></svg></span>
+        <h2 class="mega xs"><span class="ln"><i>Aperte <em>play.</em></i></span><span class="ln"><i>O resto é conta.</i></span></h2>
+        <p class="say sm">Timer dentro da tarefa, vários em paralelo, cronômetro de reunião e apontamento por dia. No fim do mês, a hora vira <b>capacidade</b>, <b>custo</b> e <b>relatório do cliente</b> — sem ninguém preencher planilha.</p>
+        <div class="rows thin">
+          <div class="row"><span class="k">Timer por tarefa</span><span class="v">Play / pausa</span></div>
+          <div class="row"><span class="k">Horas × contrato</span><span class="v"><em>Automático</em></span></div>
+          <div class="row"><span class="k">Capacidade do time</span><span class="v">Dias úteis</span></div>
+        </div>
+      </div>
+      <div class="frame">
+        <div class="tb"><i></i><i></i><i></i><span>ariuno.com.br · planner</span></div>
+        <img src="assets/shots/09-planner.png" alt="Planner do Ariuno com horas e alocação">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 11 · APROVAÇÕES ═══ -->
+<section class="s paper">
+  <div class="meta"><span class="l">Aprovações e entregas</span><span class="r">Fim do “quem aprovou isso?”</span></div>
+  <div class="body">
+    <div class="sp-b">
+      <div class="frame">
+        <div class="tb"><i></i><i></i><i></i><span>ariuno.com.br · solicitações</span></div>
+        <img src="assets/shots/14-solicitacoes.png" alt="Tela de solicitações e aprovações do Ariuno">
+      </div>
+      <div class="stack">
+        <span class="ic"><svg><use href="#k-check"/></svg></span>
+        <h2 class="mega xs"><span class="ln"><i>Aprovou?</i></span><span class="ln"><i><em>Ficou registrado.</em></i></span></h2>
+        <p class="say sm">Aprovação interna e do cliente na mesma esteira: quem pediu, quem aprovou, quando, com qual observação. O histórico fica na tarefa — não no e-mail de alguém que saiu da empresa.</p>
+        <div class="chips"><span class="chip on">Pendentes</span><span class="chip">Aprovadas</span><span class="chip">Reprovadas</span><span class="chip">Parciais</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 12 · RELATÓRIO DO CLIENTE ═══ -->
+<section class="s pic">
+  <div class="img"><img src="assets/shots/12-relatorio-cliente.png" alt="Relatório de cliente gerado pelo Ariuno"></div>
+  <div class="scrim"></div>
+  <div class="cap">
+    <span class="kicker tl">O que vende renovação</span>
+    <h2 class="mega sm"><span class="ln"><i>Um link.</i></span><span class="ln"><i>Toda a <em>prova de valor.</em></i></span></h2>
+    <p class="say">Projetos entregues, horas consumidas × horas contratadas, entregas no prazo, evolução de 12 meses. Gera link público ou PDF e vai para a reunião de resultado sem ninguém montar slide.</p>
+  </div>
+</section>
+
+<!-- ═══ 13 · FORMULÁRIOS ═══ -->
+<section class="s deep">
+  <div class="meta"><span class="l">Entrada de demanda</span><span class="r">Formulários e solicitações</span></div>
+  <div class="body">
+    <div class="sp-a">
+      <div class="stack">
+        <span class="ic"><svg><use href="#k-form"/></svg></span>
+        <h2 class="mega xs"><span class="ln"><i>Briefing entra</i></span><span class="ln"><i><em>pronto.</em> E vira tarefa.</i></span></h2>
+        <p class="say sm">Monte o formulário do jeito que a sua operação precisa, mande o link para o cliente ou para a área interna e receba a demanda <b>padronizada</b> — já dentro do quadro, com responsável e prazo.</p>
+        <div class="rows thin">
+          <div class="row"><span class="k">Link público</span><span class="v">Sem login</span></div>
+          <div class="row"><span class="k">Campos personalizados</span><span class="v">Do seu jeito</span></div>
+          <div class="row"><span class="k">Vira tarefa</span><span class="v"><em>Na hora</em></span></div>
+        </div>
+      </div>
+      <div class="frame">
+        <div class="tb"><i></i><i></i><i></i><span>ariuno.com.br · formulários</span></div>
+        <img src="assets/shots/13-formularios.png" alt="Construtor de formulários do Ariuno">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 14 · DEPARTAMENTOS ═══ -->
+<section class="s paper">
+  <div class="meta"><span class="l">Além do projeto</span><span class="r">Áreas da empresa</span></div>
+  <div class="body">
+    <h2 class="mega xs"><span class="ln"><i>Não é só o time de entrega.</i></span><span class="ln"><i>É a <em>empresa inteira.</em></i></span></h2>
+    <div class="sp-b">
+      <div class="frame">
+        <div class="tb"><i></i><i></i><i></i><span>ariuno.com.br · financeiro</span></div>
+        <img src="assets/shots/17-financeiro.png" alt="Módulo financeiro do Ariuno">
+      </div>
+      <div class="stack">
+        <p class="say sm">Cada área tem a sua tela — e todas puxam do mesmo dado da tarefa: cotação, orçamento, despesa, aprovação, entrega.</p>
+        <div class="chips">
+          <span class="chip on">Comercial</span><span class="chip on">Financeiro</span><span class="chip on">Compras</span>
+          <span class="chip on">Criação</span><span class="chip on">Tráfego</span><span class="chip on">Social Mídia</span>
+          <span class="chip on">Marketing</span><span class="chip on">RH</span><span class="chip on">Diretoria</span>
+        </div>
+        <p class="disc">Orçamentos, cotações, despesas por tarefa, pipeline comercial e visão de diretoria — liberados por permissão, área por área.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 15 · ARENA ═══ -->
+<section class="s">
+  <div class="meta"><span class="l">Engajamento</span><span class="r">Arena Ariuno</span></div>
+  <div class="body">
+    <div class="sp-a">
+      <div class="stack">
+        <span class="ic"><svg><use href="#k-trophy"/></svg></span>
+        <h2 class="mega xs"><span class="ln"><i>Sistema que ninguém</i></span><span class="ln"><i>usa é <em>planilha cara.</em></i></span></h2>
+        <p class="say sm">A Arena transforma entrega em ranking, missão e prêmio configurável pela empresa. Não é enfeite: é o que faz o time <b>alimentar o sistema</b> — e o dado do relatório ficar confiável.</p>
+      </div>
+      <div class="frame">
+        <div class="tb"><i></i><i></i><i></i><span>ariuno.com.br · arena</span></div>
+        <img src="assets/shots/15-arena.png" alt="Arena Ariuno com ranking e missões">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 16 · IA ═══ -->
+<section class="s deep">
+  <div class="meta"><span class="l">Ariuno IA</span><span class="r">Inteligência sobre o seu próprio dado</span></div>
+  <div class="body">
+    <div class="sp-b">
+      <div class="frame">
+        <div class="tb"><i></i><i></i><i></i><span>ariuno.com.br · ariuno ia</span></div>
+        <img src="assets/shots/16-ia.png" alt="Assistente de IA do Ariuno">
+      </div>
+      <div class="stack">
+        <span class="ic"><svg><use href="#k-ai"/></svg></span>
+        <h2 class="mega xs"><span class="ln"><i>Pergunte em</i></span><span class="ln"><i><em>português.</em></i></span></h2>
+        <p class="say sm">“Quais tarefas do cliente X estão atrasadas?”, “resuma a semana do time”, “gere o checklist dessa entrega”. A IA lê o dado da sua empresa — e só dela.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 17 · MURAL E APP ═══ -->
+<section class="s paper">
+  <div class="meta"><span class="l">Comunicação interna</span><span class="r">Mural, notificações e app</span></div>
+  <div class="body">
+    <div class="sp-a">
+      <div class="stack">
+        <span class="ic"><svg><use href="#k-bell"/></svg></span>
+        <h2 class="mega xs"><span class="ln"><i>O aviso importante</i></span><span class="ln"><i>não se perde no <em>grupo.</em></i></span></h2>
+        <p class="say sm">Mural da empresa com reações e comentários, notificações do que é seu, menções na tarefa e app instalável no celular. O recado fica onde o trabalho está.</p>
+        <div class="rows thin">
+          <div class="row"><span class="k">App (PWA)</span><span class="v">iOS e Android</span></div>
+          <div class="row"><span class="k">Notificação push</span><span class="v"><em>Em tempo real</em></span></div>
+        </div>
+      </div>
+      <div class="frame">
+        <div class="tb"><i></i><i></i><i></i><span>ariuno.com.br · mural</span></div>
+        <img src="assets/shots/01-mural.png" alt="Mural interno do Ariuno">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 18 · GOVERNANÇA ═══ -->
+<section class="s">
+  <div class="meta"><span class="l">Governança</span><span class="r">Quem vê o quê</span></div>
+  <div class="body">
+    <div class="sp-b">
+      <div class="frame">
+        <div class="tb"><i></i><i></i><i></i><span>ariuno.com.br · equipe</span></div>
+        <img src="assets/shots/03-equipe.png" alt="Gestão de usuários e permissões do Ariuno">
+      </div>
+      <div class="stack">
+        <span class="ic"><svg><use href="#k-lock"/></svg></span>
+        <h2 class="mega xs"><span class="ln"><i>Permissão por</i></span><span class="ln"><i><em>área</em>, não por cargo.</i></span></h2>
+        <div class="rows thin">
+          <div class="row"><span class="k">Multiempresa</span><span class="v">Isolado por conta</span></div>
+          <div class="row"><span class="k">Áreas liberadas</span><span class="v">Usuário a usuário</span></div>
+          <div class="row"><span class="k">Cliente convidado</span><span class="v"><em>Só o que é dele</em></span></div>
+          <div class="row"><span class="k">Backup e histórico</span><span class="v">Auditoria por tarefa</span></div>
+          <div class="row"><span class="k">Infraestrutura</span><span class="v">Google Firebase</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 19 · CHAP COMPARATIVO ═══ -->
+<section class="s iris">
+  <div class="meta"><span class="l">Capítulo 03</span><span class="r">Comparativo de mercado</span></div>
+  <div class="body">
+    <h2 class="mega"><span class="ln"><i>Compare.</i></span><span class="ln"><i>A gente <em>gosta</em></i></span><span class="ln"><i>dessa conversa.</i></span></h2>
+    <p class="say">Não somos os mais baratos da lista. Somos os únicos que entregam a operação <b>inteira</b> num assento só.</p>
+  </div>
+</section>
+
+<!-- ═══ 20 · COMPARATIVO ═══ -->
+<section class="s paper">
+  <div class="meta"><span class="l">Preço de lista por usuário/mês</span><span class="r">Consultado em agosto de 2026</span></div>
+  <div class="body">
+    <h2 class="mega xs"><span class="ln"><i>O mercado cobra parecido.</i></span><span class="ln"><i>A diferença está no <em>escopo.</em></i></span></h2>
+    <div class="rows thin">
+      <div class="row hi"><span class="k">Ariuno · faixa 20–39 usuários<b>Projetos + horas + aprovações + portal do cliente + áreas da empresa + IA</b></span><span class="v"><em>R$ 87</em><s>tudo incluso</s></span></div>
+      <div class="row"><span class="k">monday.com · Pro<b>Forte em quadro. Timesheet e portal de aprovação exigem apps e plano maior</b></span><span class="v">R$ 105<s>anual</s></span></div>
+      <div class="row"><span class="k">Asana · Advanced<b>Excelente em fluxo. Sem financeiro, sem relatório de horas × contrato</b></span><span class="v">US$ 24,99<s>≈ R$ 137</s></span></div>
+      <div class="row"><span class="k">Operand<b>Feito para agência, mas com jornada de uso mais dura e sem gamificação</b></span><span class="v">R$ 70<s>por usuário</s></span></div>
+      <div class="row"><span class="k">ClickUp · Business<b>Muito configurável — e por isso raramente configurado até o fim</b></span><span class="v">US$ 12<s>≈ R$ 66</s></span></div>
+      <div class="row"><span class="k">Runrun.it · Business<b>Bom controle de horas. Sem módulos por área e sem portal do cliente</b></span><span class="v">R$ 59<s>mín. 5 usuários</s></span></div>
+      <div class="row"><span class="k">Artia<b>Gestão de projetos clássica, com foco em PMO</b></span><span class="v">a partir de R$ 60<s>por usuário</s></span></div>
+    </div>
+    <p class="disc">Preços públicos dos fabricantes, consultados em ago/2026 — monday.com e Artia em reais; Asana e ClickUp em dólar (conversão aproximada, sujeita a câmbio e impostos). Valores de referência, não substituem a proposta de cada fornecedor.</p>
+  </div>
+</section>
+
+<!-- ═══ 21 · SUBSTITUI ═══ -->
+<section class="s deep">
+  <div class="meta"><span class="l">Consolidação</span><span class="r">Uma assinatura no lugar de cinco</span></div>
+  <div class="body">
+    <h2 class="mega xs"><span class="ln"><i>Você não está comparando</i></span><span class="ln"><i>com <em>uma</em> ferramenta.</i></span></h2>
+    <div class="sp">
+      <div class="rows thin">
+        <div class="row"><span class="k">Gestão de projetos</span><span class="v">R$ 66</span></div>
+        <div class="row"><span class="k">Controle de horas</span><span class="v">R$ 35</span></div>
+        <div class="row"><span class="k">Aprovação de criação</span><span class="v">R$ 40</span></div>
+        <div class="row"><span class="k">Relatório / BI do cliente</span><span class="v">R$ 30</span></div>
+        <div class="row"><span class="k">Formulários e briefing</span><span class="v">R$ 25</span></div>
+        <div class="row hi"><span class="k">Somado, por usuário/mês</span><span class="v"><em>R$ 196</em></span></div>
+      </div>
+      <div class="bn">
+        <span class="tag">Ariuno · faixa 20–39</span>
+        <span class="num mid"><span class="pfx">R$</span><span data-n="87">0</span></span>
+        <span class="lb">por usuário/mês — e uma senha só, um suporte só, um dado só</span>
+      </div>
+    </div>
+    <p class="disc">Valores ilustrativos de mercado para um stack equivalente. O ganho real não é só o preço: é parar de reconciliar cinco bases de dados diferentes.</p>
+  </div>
+</section>
+
+<!-- ═══ 22 · CHAP INVESTIMENTO ═══ -->
+<section class="s lime">
+  <div class="meta"><span class="l">Capítulo 04</span><span class="r">Investimento</span></div>
+  <div class="body">
+    <h2 class="mega"><span class="ln"><i>Preço por</i></span><span class="ln"><i>usuário.</i></span><span class="ln"><i><em>Sem pegadinha.</em></i></span></h2>
+    <p class="say">Quanto mais gente entra, <b>menos custa cada pessoa</b>. E o cliente que só aprova e acompanha não paga nada.</p>
+  </div>
+</section>
+
+<!-- ═══ 23 · TABELA PROGRESSIVA ═══ -->
+<section class="s paper">
+  <div class="meta"><span class="l">Tabela progressiva</span><span class="r">Assinatura mensal · por usuário ativo</span></div>
+  <div class="body">
+    <div class="sp-b">
+      <div class="rows thin">
+        <div class="row"><span class="k">5 a 9 usuários</span><span class="v">R$ 119<s>por usuário/mês</s></span></div>
+        <div class="row"><span class="k">10 a 19 usuários</span><span class="v">R$ 99<s>economia de 17%</s></span></div>
+        <div class="row hi"><span class="k">20 a 39 usuários</span><span class="v"><em>R$ 87</em><s>faixa mais contratada</s></span></div>
+        <div class="row"><span class="k">40 a 79 usuários</span><span class="v">R$ 75<s>economia de 37%</s></span></div>
+        <div class="row"><span class="k">80 a 149 usuários</span><span class="v">R$ 64<s>economia de 46%</s></span></div>
+        <div class="row"><span class="k">150 usuários ou mais</span><span class="v">sob consulta<s>a partir de R$ 54</s></span></div>
+      </div>
+      <div class="stack">
+        <span class="kicker">Exemplos</span>
+        <div class="g" style="gap:clamp(8px,1vw,14px)">
+          <div class="cd fu"><span class="n">10 usuários</span><span class="t">R$ 990<span style="font-size:.5em;font-stretch:100%">/mês</span></span><span class="d">Time enxuto, operação inteira rodando.</span></div>
+          <div class="cd hl fu"><span class="n">30 usuários</span><span class="t">R$ 2.610<span style="font-size:.5em;font-stretch:100%">/mês</span></span><span class="d">Menos de R$ 3 por hora de trabalho gerida.</span></div>
+          <div class="cd fu"><span class="n">60 usuários</span><span class="t">R$ 4.500<span style="font-size:.5em;font-stretch:100%">/mês</span></span><span class="d">Multiempresa, várias unidades na mesma conta.</span></div>
+        </div>
+      </div>
+    </div>
+    <p class="disc">O valor da faixa vale para todos os usuários da conta. Mínimo de 5 usuários. Valores mensais, sem fidelidade — no plano anual à vista, 15% de desconto.</p>
+  </div>
+</section>
+
+<!-- ═══ 24 · O QUE ESTÁ INCLUSO ═══ -->
+<section class="s">
+  <div class="meta"><span class="l">Sem plano trancado</span><span class="r">O que vem na assinatura</span></div>
+  <div class="body">
+    <h2 class="mega xs"><span class="ln"><i>Todo mundo tem</i></span><span class="ln"><i><em>tudo.</em> Só muda o tamanho.</i></span></h2>
+    <div class="duo">
+      <div>
+        <div class="hd"><span class="ic sm"><svg><use href="#k-check"/></svg></span><b>Incluso</b></div>
+        <div class="li"><span class="bt"></span><span>Todos os módulos e visões — nada bloqueado por plano</span></div>
+        <div class="li lm"><span class="bt"></span><span><b>Usuários “cliente” ilimitados e gratuitos</b> — acompanham e aprovam sem ocupar assento</span></div>
+        <div class="li"><span class="bt"></span><span>Ariuno IA, app instalável e notificações push</span></div>
+        <div class="li"><span class="bt"></span><span>Relatório do cliente com link público e PDF</span></div>
+        <div class="li"><span class="bt"></span><span>Atualizações contínuas e backup do histórico</span></div>
+        <div class="li"><span class="bt"></span><span>Suporte em português, com quem construiu a plataforma</span></div>
+      </div>
+      <div>
+        <div class="hd"><span class="ic sm"><svg><use href="#k-money"/></svg></span><b>Condições</b></div>
+        <div class="li"><span class="bt"></span><span>Mínimo de 5 usuários ativos</span></div>
+        <div class="li"><span class="bt"></span><span>Plano anual à vista: <b>−15%</b></span></div>
+        <div class="li tl"><span class="bt"></span><span>Implantação, migração e treinamento: <b>R$ 3.900</b> (única) — <b>isenta</b> no anual a partir de 20 usuários</span></div>
+        <div class="li"><span class="bt"></span><span>White-label completo (sua marca e seu domínio): R$ 690/mês</span></div>
+        <div class="li"><span class="bt"></span><span>Integrações e telas sob medida: escopo fechado à parte</span></div>
+        <div class="li"><span class="bt"></span><span>Piloto de 30 dias com o seu processo real</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 25 · ROI ═══ -->
+<section class="s iris">
+  <div class="meta"><span class="l">Retorno</span><span class="r">Time de 30 pessoas</span></div>
+  <div class="body">
+    <span class="kicker pp">A conta fecha no primeiro mês</span>
+    <div class="g g3 keep">
+      <div class="bn fu"><span class="num sm">R$ <span data-n="28350" data-f>0</span></span><span class="lb">perdidos por mês com 1h/dia de retrabalho</span></div>
+      <div class="bn fu"><span class="num sm">R$ <span data-n="2610" data-f>0</span></span><span class="lb">de assinatura Ariuno no mesmo mês</span></div>
+      <div class="bn fu"><span class="num sm"><span data-n="10">0</span>,9<u>×</u></span><span class="lb">de retorno se recuperar só essa hora</span></div>
+    </div>
+    <p class="say w">E isso antes de contar o que você deixa de perder em <b>hora não faturada</b>, <b>entrega atrasada</b> e <b>cliente que não vê valor</b> no que foi feito.</p>
+  </div>
+</section>
+
+<!-- ═══ 26 · IMPLANTAÇÃO ═══ -->
+<section class="s paper">
+  <div class="meta"><span class="l">Implantação</span><span class="r">21 dias do contrato ao go-live</span></div>
+  <div class="body">
+    <h2 class="mega xs"><span class="ln"><i>Em três semanas</i></span><span class="ln"><i>o time já está <em>dentro.</em></i></span></h2>
+    <div class="gantt">
+      <div class="gr"><span class="gk">Descoberta</span><div class="gt"><i style="left:0;width:16%">Dias 1–3</i></div></div>
+      <div class="gr"><span class="gk">Configuração</span><div class="gt"><i class="b" style="left:14%;width:30%">Dias 4–9 · quadros, campos, permissões, marca</i></div></div>
+      <div class="gr"><span class="gk">Migração</span><div class="gt"><i class="c" style="left:33%;width:34%">Dias 8–14 · clientes, projetos e tarefas em aberto</i></div></div>
+      <div class="gr"><span class="gk">Treinamento</span><div class="gt"><i class="b" style="left:52%;width:31%">Dias 12–18 · duas turmas + material</i></div></div>
+      <div class="gr"><span class="gk">Go-live</span><div class="gt"><i class="d" style="left:66%;width:34%">Dias 15–21 · acompanhamento e ajuste fino</i></div></div>
+    </div>
+    <p class="disc">Prazo de referência para times de até 40 usuários. Migração de base existente e integrações específicas podem alongar a fase de configuração.</p>
+  </div>
+</section>
+
+<!-- ═══ 27 · FECHAMENTO ═══ -->
+<section class="s deep">
+  <div class="meta"><span class="l">Próximo passo</span><span class="r">Ariuno · 75 LAB</span></div>
+  <div class="body">
+    <div class="sp">
+      <div class="stack" style="gap:clamp(14px,2vw,30px)">
+        <span class="ic big"><svg><use href="#k-rocket"/></svg></span>
+        <h2 class="mega sm"><span class="ln"><i>Comece pelo</i></span><span class="ln"><i><em>piloto</em> de 30 dias.</i></span></h2>
+        <p class="say">A gente configura um quadro real da sua operação, coloca o seu time dentro e mede o resultado. Se não mudar o seu dia, você não continua.</p>
+        <div class="ctas">
+          <a class="cta" href="https://ariuno.com.br" target="_blank" rel="noopener">Conhecer o Ariuno <span class="ar"><svg><use href="#ar"/></svg></span></a>
+          <button class="cta gh" data-go="22">Rever o investimento</button>
+        </div>
+      </div>
+      <div class="rows">
+        <div class="row"><span class="k">Plataforma</span><span class="v">ariuno.com.br</span></div>
+        <div class="row"><span class="k">Quem construiu</span><span class="v">75 LAB</span></div>
+        <div class="row"><span class="k">Site</span><span class="v">75lab.com.br</span></div>
+        <div class="row hi"><span class="k">Piloto</span><span class="v"><em>30 dias</em></span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<div class="menu" id="menu">
+  <div class="mh"><span class="t">Índice</span><button id="mx">Fechar ✕</button></div>
+  <ul class="ml" id="mlist"></ul>
+</div>
+
+<script>
+(function(){
+  var T=["Capa",
+    "O problema",
+    "A operação em 14 abas",
+    "A conta que ninguém faz",
+    "Ariuno",
+    "Visão geral em tempo real",
+    "O quadro",
+    "Do briefing ao relatório",
+    "Cinco visões do mesmo dado",
+    "Horas e capacidade",
+    "Aprovações e entregas",
+    "Relatório do cliente",
+    "Formulários e briefing",
+    "Áreas da empresa",
+    "Arena · engajamento",
+    "Ariuno IA",
+    "Mural, avisos e app",
+    "Governança e permissões",
+    "Comparativo de mercado",
+    "Preços do mercado",
+    "Uma assinatura no lugar de cinco",
+    "Investimento",
+    "Tabela progressiva",
+    "O que está incluso",
+    "Retorno do investimento",
+    "Implantação em 21 dias",
+    "Próximo passo"];
+  var HD=[0,1,4,18,21];
+  var sl=[].slice.call(document.querySelectorAll('.s')), i=0, n=sl.length;
+  var menu=document.getElementById('menu'), ml=document.getElementById('mlist'), pro=document.getElementById('pro');
+
+  /* régua + rodapé automáticos */
+  sl.forEach(function(s,k){
+    var pic=s.classList.contains('pic');
+    var light=s.classList.contains('paper')||s.classList.contains('lime');
+    if(!pic){
+      var m=s.querySelector('.meta');
+      if(m&&!s.querySelector('.hair')){
+        var h=document.createElement('div');h.className='hair';
+        var b=document.createElement('div');b.className='bar';
+        m.parentNode.insertBefore(b,m.nextSibling);
+        m.parentNode.insertBefore(h,m.nextSibling);
+      }
+    }
+    if(!s.querySelector('.fo')){
+      var f=document.createElement('div'); f.className='fo';
+      f.innerHTML='<div class="bd"><img src="assets/75lab-wordmark-'+(light?'black':'paper')+'.png" alt="75 LAB"><span class="x">×</span><span class="n">ARIUNO</span></div>'+
+        '<div class="nav"><button class="mbtn mo"><svg><use href="#mn"/></svg>Índice</button>'+
+        '<button class="nb pv" aria-label="Anterior"><svg><use href="#al"/></svg></button>'+
+        '<span class="pg"><b class="cu">'+String(k+1).padStart(2,'0')+'</b> / <span class="to">'+String(n).padStart(2,'0')+'</span></span>'+
+        '<button class="nb nx" aria-label="Próximo"><svg><use href="#ar"/></svg></button></div>';
+      s.appendChild(f);
+    }
+  });
+
+  T.forEach(function(t,k){
+    var li=document.createElement('li');
+    if(HD.indexOf(k)>-1) li.className='hd';
+    li.innerHTML='<span class="nn">'+String(k+1).padStart(2,'0')+'</span><span class="tt"></span>';
+    li.querySelector('.tt').textContent=t;
+    li.onclick=function(){go(k);menu.classList.remove('open')};
+    ml.appendChild(li);
+  });
+
+  function nums(s){
+    [].forEach.call(s.querySelectorAll('[data-n]'),function(el){
+      var tg=parseFloat(el.getAttribute('data-n')),t0=null,d=1150;
+      var fin=el.hasAttribute('data-f')?tg.toLocaleString('pt-BR'):String(tg);
+      if(document.hidden){ el.textContent=fin; return; }
+      el.textContent='0';
+      function st(ts){ if(!t0)t0=ts;
+        var p=Math.min((ts-t0)/d,1), e=1-Math.pow(1-p,4);
+        var v=Math.round(tg*e);
+        el.textContent=el.hasAttribute('data-f')?v.toLocaleString('pt-BR'):v;
+        if(p<1)requestAnimationFrame(st); }
+      requestAnimationFrame(st);
+      setTimeout(function(){ el.textContent=fin },d+200);
+    });
+  }
+  function replay(s){
+    s.querySelectorAll('.bar,.ln>i,.fu,.rows>*,.cta,.shot,.frame,.gt>i,.gb,.dr').forEach(function(e){
+      var a=e.style.animation; e.style.animation='none'; void e.offsetWidth; e.style.animation=a||'';
+    });
+  }
+  function go(k){
+    if(k<0||k>=n||k===i)return;
+    sl[i].classList.remove('on'); i=k;
+    sl[i].classList.add('on'); sl[i].scrollTop=0;
+    replay(sl[i]); nums(sl[i]); runSeq(sl[i]);
+    pro.style.width=(i/(n-1)*100)+'%';
+    if(history.replaceState) history.replaceState(null,'','#'+(i+1));
+  }
+  document.querySelectorAll('.nx').forEach(function(b){b.onclick=function(){go(i+1)}});
+  document.querySelectorAll('.pv').forEach(function(b){b.onclick=function(){go(i-1)}});
+  document.querySelectorAll('[data-go]').forEach(function(e){e.onclick=function(){go(+e.getAttribute('data-go'))}});
+  document.querySelectorAll('.mo').forEach(function(e){e.onclick=function(){menu.classList.add('open')}});
+  document.getElementById('mx').onclick=function(){menu.classList.remove('open')};
+
+  document.addEventListener('keydown',function(e){
+    if(menu.classList.contains('open')){ if(e.key==='Escape')menu.classList.remove('open'); return; }
+    if(['ArrowRight','PageDown',' '].indexOf(e.key)>-1){e.preventDefault();go(i+1)}
+    if(['ArrowLeft','PageUp'].indexOf(e.key)>-1){e.preventDefault();go(i-1)}
+    if(e.key==='Home'){e.preventDefault();go(0)}
+    if(e.key==='End'){e.preventDefault();go(n-1)}
+    if(e.key==='m'||e.key==='M')menu.classList.add('open');
+  });
+  var x0=null,y0=null;
+  document.addEventListener('touchstart',function(e){x0=e.touches[0].clientX;y0=e.touches[0].clientY},{passive:true});
+  document.addEventListener('touchend',function(e){
+    if(x0===null)return;
+    var dx=e.changedTouches[0].clientX-x0, dy=e.changedTouches[0].clientY-y0;
+    if(Math.abs(dx)>60&&Math.abs(dx)>Math.abs(dy)){dx<0?go(i+1):go(i-1)} x0=null;y0=null;
+  },{passive:true});
+
+  if(!window.matchMedia('(pointer:coarse)').matches){
+    var c=document.getElementById('cur'), d=document.getElementById('dot'), p=document.getElementById('ptr');
+    var mx=innerWidth/2,my=innerHeight/2,cx=mx,cy=my,dx2=mx,dy2=my,px=mx,py=my,on=false;
+    var H='button,a,.chip,.row,.step,.cd,.ml li,.li,.fnode,.shot,.frame,[data-go]';
+    c.classList.add('off');d.classList.add('off');p.classList.add('off');
+    document.addEventListener('mousemove',function(e){
+      mx=e.clientX;my=e.clientY;
+      if(!on){on=true;c.classList.remove('off');d.classList.remove('off');p.classList.remove('off')}
+      var t=e.target;
+      document.body.classList.toggle('hot',!!(t&&t.closest&&t.closest(H)));
+    },{passive:true});
+    document.addEventListener('mouseleave',function(){on=false;c.classList.add('off');d.classList.add('off');p.classList.add('off')});
+    (function lp(){
+      cx+=(mx-cx)*.17; cy+=(my-cy)*.17;
+      dx2+=(mx-dx2)*.45; dy2+=(my-dy2)*.45;
+      px+=(mx-px)*.28; py+=(my-py)*.28;
+      c.style.transform='translate3d('+cx+'px,'+cy+'px,0)';
+      d.style.transform='translate3d('+dx2+'px,'+dy2+'px,0)';
+      p.style.transform='translate3d('+px+'px,'+py+'px,0)';
+      requestAnimationFrame(lp);
+    })();
+  }
+
+  var seqT=null;
+  function stopSeq(){ if(seqT){clearTimeout(seqT);seqT=null} }
+  function runSeq(s){
+    stopSeq();
+    var box=s.querySelector('[data-seq],[data-flow]'); if(!box)return;
+    var isFlow=box.hasAttribute('data-flow');
+    var st=[].slice.call(box.querySelectorAll(isFlow?'.fnode':'.step'));
+    if(!st.length)return;
+    st.forEach(function(e){e.classList.remove('act','done')});
+    var k=0;
+    function tick(){
+      st.forEach(function(e,j){
+        e.classList.toggle('act', j===k);
+        if(!isFlow) e.classList.toggle('done', j<k);
+      });
+      var last=(k===st.length-1);
+      k=last?0:k+1;
+      seqT=setTimeout(tick, last?2600:1500);
+    }
+    seqT=setTimeout(tick,600);
+  }
+  var start=parseInt((location.hash||'').replace('#',''),10);
+  if(start>1&&start<=n){ sl[0].classList.remove('on'); i=start-1; sl[i].classList.add('on'); pro.style.width=(i/(n-1)*100)+'%'; }
+  runSeq(sl[i]); nums(sl[i]);
+  window.__go=go;
+})();
+</script>
+</body>
+</html>
