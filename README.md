@@ -1,7 +1,10 @@
 # Ariuno · a plataforma de gestão da 75 LAB
 
-Apresentação comercial em HTML (27 telas) para vender a **plataforma Ariuno** — o sistema
+Apresentação comercial em HTML para vender a **plataforma Ariuno** — o sistema
 que a 75 LAB construiu e usa todos os dias — para outras empresas.
+
+- `index.html` — **deck comercial de 10 telas** (o que se apresenta ao vivo)
+- `versao-completa.html` — versão longa de 28 telas, material de apoio e follow-up
 
 **No ar:** https://projetos.75lab.com.br/ariuno-plataforma/
 
@@ -16,15 +19,20 @@ que a 75 LAB construiu e usa todos os dias — para outras empresas.
 - Prints capturados da operação real e **anonimizados**: nomes de clientes trocados por
   marcas fictícias, e-mails mascarados, nomes de pessoas substituídos e fotos desfocadas
 
-## Estrutura
+## Estrutura (versão de 10 telas)
 
-| Bloco | Telas |
+| # | Tela |
 |---|---|
-| Capa | 01 |
-| O problema | 02–04 |
-| A plataforma | 05–18 |
-| Comparativo de mercado | 19–21 |
-| Investimento | 22–27 |
+| 01 | Capa · uma plataforma, toda a sua operação |
+| 02 | O problema · a conta do retrabalho |
+| 03 | Do briefing à nota fiscal · o ciclo em 6 etapas |
+| 04 | O produto em uso · quatro leituras do mesmo dado |
+| 05 | A hora vira dinheiro · horas × contrato |
+| 06 | O cliente vê valor · relatório em um link |
+| 07 | A empresa inteira · áreas, adoção e IA |
+| 08 | Comparativo de mercado · e o stack que substitui |
+| 09 | Investimento · tabela progressiva e ROI |
+| 10 | Próximo passo · piloto de 30 dias |
 
 ## Navegação
 
