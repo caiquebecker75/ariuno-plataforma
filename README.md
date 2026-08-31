@@ -16,6 +16,9 @@ que a 75 LAB construiu e usa todos os dias — para outras empresas.
 - Tipografia Archivo + Space Grotesk + Space Mono (template de deck da 75 LAB)
 - Cursor desenhado, ícones SVG animados, big numbers com count-up, fluxo animado,
   gantt de implantação e prints reais da plataforma em moldura de navegador
+- **Prints clicáveis**: qualquer print abre em tela cheia (selo "clique para ampliar"
+  em cada imagem, `Esc` fecha, clique na imagem alterna entre ajustar à tela e 100%)
+- **Matriz de funcionalidades** Ariuno × monday × Asana × ClickUp × Runrun.it × Operand
 - Prints capturados da operação real e **anonimizados**: nomes de clientes trocados por
   marcas fictícias, e-mails mascarados, nomes de pessoas substituídos e fotos desfocadas
 
@@ -30,7 +33,7 @@ que a 75 LAB construiu e usa todos os dias — para outras empresas.
 | 05 | A hora vira dinheiro · horas × contrato |
 | 06 | O cliente vê valor · relatório em um link |
 | 07 | A empresa inteira · áreas, adoção e IA |
-| 08 | Comparativo de mercado · e o stack que substitui |
+| 08 | Comparativo de funcionalidades · matriz contra 5 concorrentes |
 | 09 | Investimento · tabela progressiva e ROI |
 | 10 | Próximo passo · piloto de 30 dias |
 

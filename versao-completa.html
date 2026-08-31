@@ -318,7 +318,7 @@ body.hot #ptr{opacity:1}
 .pic .img img{width:100%;height:100%;object-fit:cover;object-position:top left;transform:scale(1.08)}
 .s.pic.on .img img{animation:kb 11s cubic-bezier(.2,.6,.3,1) forwards}
 @keyframes kb{to{transform:scale(1)}}
-.pic .scrim{position:absolute;inset:0;background:
+.pic .scrim{position:absolute;inset:0;pointer-events:none;background:
   linear-gradient(80deg,rgba(6,7,15,.97) 14%,rgba(6,7,15,.76) 48%,rgba(6,7,15,.18) 92%),
   linear-gradient(0deg,rgba(6,7,15,.96) 0,rgba(6,7,15,.55) 22%,transparent 44%)}
 .pic .cap{position:relative;z-index:2;padding:var(--pad);width:100%;display:flex;flex-direction:column;gap:clamp(10px,1.4vw,22px)}
@@ -412,6 +412,72 @@ body.hot #ptr{opacity:1}
 @keyframes drw{to{stroke-dashoffset:0}}
 .s.on .gb{animation:gbup .9s cubic-bezier(.2,.85,.3,1) backwards;transform-origin:50% 100%}
 @keyframes gbup{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+
+/* ══════════ AMPLIAR PRINTS ══════════ */
+.zoomable{position:relative}
+.zbadge{position:absolute;top:clamp(6px,.7vw,12px);right:clamp(6px,.7vw,12px);z-index:4;
+  display:flex;align-items:center;gap:.5em;pointer-events:none;white-space:nowrap;
+  font-family:var(--mono);font-size:clamp(7.2px,.64vw,10.2px);letter-spacing:.14em;text-transform:uppercase;
+  padding:.5em .85em;border-radius:999px;background:rgba(6,7,15,.74);color:var(--paper);
+  box-shadow:inset 0 0 0 1px rgba(247,248,253,.3);
+  transition:background .22s,color .22s,transform .22s,box-shadow .22s}
+.zbadge svg{width:1.2em;height:1.2em;flex:none}
+.zoomable:hover .zbadge{background:var(--lime);color:var(--lab-ink);box-shadow:none;transform:translateY(-2px) scale(1.04)}
+.s.on .zbadge{animation:zpop 2.6s ease-in-out 1.2s 2}
+@keyframes zpop{0%,100%{transform:none}18%{transform:translateY(-3px) scale(1.06)}36%{transform:none}}
+
+.zlb{position:fixed;inset:0;z-index:400;display:none;background:rgba(4,5,12,.95);
+  padding:clamp(12px,2vw,34px);flex-direction:column;gap:clamp(8px,1vw,16px)}
+.zlb.open{display:flex;animation:mf .22s ease}
+.zlb .zlbh{flex:none;display:flex;justify-content:space-between;align-items:center;gap:16px;color:var(--paper)}
+.zlb .zlbt{font-family:var(--mono);font-size:clamp(8.4px,.74vw,11.4px);letter-spacing:.18em;text-transform:uppercase;opacity:.72}
+.zlb .zlbx{background:none;border:none;color:var(--paper);cursor:none;display:flex;align-items:center;gap:.6em;
+  font-family:var(--mono);font-size:clamp(8.4px,.74vw,11.4px);letter-spacing:.18em;text-transform:uppercase;opacity:.72;transition:.2s}
+.zlb .zlbx:hover{opacity:1;color:var(--lime)}
+.zlb .zlbw{flex:1;min-height:0;overflow:auto;display:flex;align-items:center;justify-content:center;scrollbar-width:none}
+.zlb .zlbw::-webkit-scrollbar{width:0;height:0}
+.zlb img{max-width:100%;max-height:100%;object-fit:contain;display:block;border-radius:clamp(5px,.5vw,9px);
+  box-shadow:0 40px 90px -40px rgba(0,0,0,.95);cursor:none}
+.zlb.full .zlbw{align-items:flex-start;justify-content:flex-start}
+.zlb.full img{max-width:none;max-height:none;width:auto;height:auto}
+
+/* ══════════ MATRIZ COMPARATIVA ══════════ */
+.mx{width:100%}
+.mx .mr{display:grid;grid-template-columns:minmax(150px,1.75fr) repeat(6,minmax(46px,1fr));
+  align-items:center;border-top:1px solid currentColor;padding:clamp(4px,.5vw,9px) 0}
+.mx .mr>*{min-width:0}
+.mx .mh{border-top:none;padding-bottom:clamp(5px,.6vw,10px)}
+.mx .mh>span{font-family:var(--mono);font-size:clamp(6.8px,.62vw,10px);letter-spacing:.1em;
+  text-transform:uppercase;opacity:.55;text-align:center;line-height:1.2}
+.mx .mh>span:first-child{text-align:left}
+.mx .mh>span.a{opacity:1;color:var(--iris);font-weight:700;letter-spacing:.12em}
+.s.deep .mx .mh>span.a,.s .mx .mh>span.a{color:var(--iris-l)}
+.s.paper .mx .mh>span.a{color:var(--iris)}
+.mx .k{font-size:clamp(9.2px,.86vw,14px);line-height:1.22;padding-right:.8em}
+.mx .k b{display:block;font-family:var(--mono);font-weight:400;font-size:.7em;letter-spacing:.08em;
+  text-transform:uppercase;opacity:.48;margin-top:.28em;line-height:1.3}
+.mx i{font-style:normal;text-align:center;font-family:var(--disp);font-weight:800;
+  font-size:clamp(11px,1.02vw,17px);line-height:1}
+.mx i.y{color:var(--gr)}
+.mx i.p{opacity:.42;font-weight:400}
+.mx i.n{opacity:.24;font-weight:400}
+.mx i.v{font-size:clamp(9.4px,.86vw,14px);letter-spacing:-.01em}
+.mx .mr>*:nth-child(2){background:rgba(106,92,255,.13);padding:clamp(4px,.5vw,9px) .3em;margin:calc(-1*clamp(4px,.5vw,9px)) 0}
+.mx .mr.mh>*:nth-child(2){border-radius:9px 9px 0 0;padding-top:clamp(6px,.7vw,11px)}
+.mx .mr:last-child>*:nth-child(2){border-radius:0 0 9px 9px;padding-bottom:clamp(6px,.7vw,11px)}
+.mx .mr.win>*:nth-child(2) i{color:var(--iris)}
+.s.paper .mx .mr.win>*:nth-child(2) i{color:var(--iris-d)}
+.mx .lg{display:flex;gap:clamp(10px,1.4vw,24px);flex-wrap:wrap;margin-top:clamp(7px,.9vw,14px);
+  font-family:var(--mono);font-size:clamp(7.2px,.64vw,10.2px);letter-spacing:.12em;text-transform:uppercase;opacity:.5}
+.mx .lg b{font-family:var(--disp);opacity:1;margin-right:.4em}
+.s.on .mx .mr{animation:fadeup .5s cubic-bezier(.2,.85,.3,1) backwards}
+.s.on .mx .mr:nth-child(2){animation-delay:.24s}.s.on .mx .mr:nth-child(3){animation-delay:.28s}
+.s.on .mx .mr:nth-child(4){animation-delay:.32s}.s.on .mx .mr:nth-child(5){animation-delay:.36s}
+.s.on .mx .mr:nth-child(6){animation-delay:.40s}.s.on .mx .mr:nth-child(7){animation-delay:.44s}
+.s.on .mx .mr:nth-child(8){animation-delay:.48s}.s.on .mx .mr:nth-child(9){animation-delay:.52s}
+.s.on .mx .mr:nth-child(10){animation-delay:.56s}.s.on .mx .mr:nth-child(11){animation-delay:.60s}
+.s.on .mx .mr:nth-child(12){animation-delay:.64s}.s.on .mx .mr:nth-child(13){animation-delay:.68s}
+@media(max-width:900px){.mx .mr{grid-template-columns:minmax(120px,1.4fr) repeat(6,minmax(34px,1fr))}}
 
 /* ══════════ ÍNDICE ══════════ */
 .menu{position:fixed;inset:0;background:var(--ink-d);z-index:300;display:none;
@@ -548,6 +614,8 @@ body.hot #ptr{opacity:1}
   <rect x="5.5" y="13.5" width="21" height="16" rx="3.4"/>
   <path d="M10.5 13.5V9a5.5 5.5 0 0 1 11 0v4.5" class="i-bob"/>
   <circle cx="16" cy="21.5" r="2" fill="currentColor" stroke="none" class="i-pulse"/></symbol>
+<symbol id="k-zoom" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round">
+  <circle cx="14" cy="14" r="9.5"/><path d="m21 21 8 8" class="i-pulse"/><path d="M14 10.5v7M10.5 14h7"/></symbol>
 </defs></svg>
 
 <main class="deck" id="deck">
@@ -568,7 +636,7 @@ body.hot #ptr{opacity:1}
         <p class="say fu">O sistema que a <b>75 LAB</b> construiu para tocar a própria casa — do <b>briefing</b> ao <b>relatório do cliente</b>. Agora aberto para a sua empresa.</p>
         <div class="ctas">
           <button class="cta" data-go="5">Ver a plataforma <span class="ar"><svg><use href="#ar"/></svg></span></button>
-          <button class="cta gh" data-go="23">Ir direto ao investimento</button>
+          <button class="cta gh" data-go="24">Ir direto ao investimento</button>
         </div>
       </div>
       <div class="gal" style="gap:clamp(8px,1vw,16px)">
@@ -577,6 +645,7 @@ body.hot #ptr{opacity:1}
           <img src="assets/shots/04-kanban.png" alt="Quadro Kanban do Ariuno com tarefas em execução">
         </div>
         <div class="chips fu"><span class="chip on">Kanban</span><span class="chip">Gantt</span><span class="chip">Horas</span><span class="chip">Aprovações</span><span class="chip">Portal do cliente</span><span class="chip lm">IA</span></div>
+        <p class="tag fu" style="display:flex;align-items:center;gap:.55em"><span style="width:1.25em;height:1.25em;display:block;color:var(--lime)"><svg style="width:100%;height:100%"><use href="#k-zoom"/></svg></span>Clique em qualquer print para ampliar</p>
       </div>
     </div>
   </div>
@@ -939,6 +1008,30 @@ body.hot #ptr{opacity:1}
   </div>
 </section>
 
+<!-- ═══ 21 · MATRIZ DE FUNCIONALIDADES ═══ -->
+<section class="s paper">
+  <div class="meta"><span class="l">Comparativo de funcionalidades</span><span class="r">Planos publicados · agosto de 2026</span></div>
+  <div class="body tight" style="gap:clamp(7px,.9vw,14px);padding:clamp(16px,2.2vw,30px) 0 clamp(4px,.5vw,8px)">
+    <h2 class="mega xs" style="font-size:clamp(15px,2.4vw,38px)"><span class="ln"><i>Não é o mesmo produto</i></span><span class="ln"><i>com <em>preço diferente.</em></i></span></h2>
+    <div class="mx">
+      <div class="mr mh"><span>O que a operação precisa</span><span class="a">ARIUNO</span><span>monday</span><span>Asana</span><span>ClickUp</span><span>Runrun.it</span><span>Operand</span></div>
+      <div class="mr"><span class="k">Quadros, lista, Gantt e calendário<b>o básico — todo mundo entrega</b></span><i class="y">✓</i><i class="y">✓</i><i class="y">✓</i><i class="y">✓</i><i class="y">✓</i><i class="p">~</i></div>
+      <div class="mr win"><span class="k">Timer na tarefa e apontamento de horas<b>sem planilha paralela</b></span><i class="y">✓</i><i class="p">~</i><i class="p">~</i><i class="y">✓</i><i class="y">✓</i><i class="y">✓</i></div>
+      <div class="mr win"><span class="k">Horas consumidas × horas contratadas<b>o alerta de contrato estourado</b></span><i class="y">✓</i><i class="n">—</i><i class="n">—</i><i class="n">—</i><i class="p">~</i><i class="p">~</i></div>
+      <div class="mr win"><span class="k">Aprovação com histórico, interna e do cliente<b>quem aprovou, quando e com que ressalva</b></span><i class="y">✓</i><i class="p">~</i><i class="p">~</i><i class="p">~</i><i class="n">—</i><i class="p">~</i></div>
+      <div class="mr win"><span class="k">Relatório do cliente em link público e PDF<b>a prova de valor que renova contrato</b></span><i class="y">✓</i><i class="p">~</i><i class="n">—</i><i class="p">~</i><i class="p">~</i><i class="p">~</i></div>
+      <div class="mr win"><span class="k">Usuário “cliente” ilimitado e sem custo<b>seu cliente entra sem virar assento pago</b></span><i class="y">✓</i><i class="n">—</i><i class="p">~</i><i class="p">~</i><i class="n">—</i><i class="p">~</i></div>
+      <div class="mr win"><span class="k">Financeiro: orçamento, despesa e faturamento<b>a tarefa vira dinheiro no mesmo sistema</b></span><i class="y">✓</i><i class="n">—</i><i class="n">—</i><i class="n">—</i><i class="n">—</i><i class="y">✓</i></div>
+      <div class="mr win"><span class="k">Módulos prontos por área da empresa<b>compras, criação, tráfego, RH, diretoria</b></span><i class="y">✓</i><i class="p">~</i><i class="n">—</i><i class="p">~</i><i class="n">—</i><i class="p">~</i></div>
+      <div class="mr win"><span class="k">Gamificação para o time querer usar<b>sem adoção, o dado do relatório não vale nada</b></span><i class="y">✓</i><i class="n">—</i><i class="n">—</i><i class="n">—</i><i class="n">—</i><i class="n">—</i></div>
+      <div class="mr win"><span class="k">IA que lê o dado da sua empresa<b>pergunta em português, responde com o seu número</b></span><i class="y">✓</i><i class="p">~</i><i class="p">~</i><i class="p">~</i><i class="n">—</i><i class="n">—</i></div>
+      <div class="mr win"><span class="k">White-label: sua marca e seu domínio<b>a plataforma vira produto da sua empresa</b></span><i class="y">✓</i><i class="n">—</i><i class="n">—</i><i class="n">—</i><i class="n">—</i><i class="n">—</i></div>
+      <div class="mr win"><span class="k">Preço por usuário/mês · faixa 20–39<b>e o stack que ele substitui custa R$ 196</b></span><i class="v">R$ 87</i><i class="v p">R$ 105</i><i class="v p">≈R$ 137</i><i class="v p">≈R$ 66</i><i class="v p">R$ 59</i><i class="v p">R$ 70</i></div>
+      <div class="lg"><span><b class="y">✓</b>entrega de fábrica</span><span><b>~</b>parcial, via app ou plano superior</span><span><b>—</b>não faz</span><span style="opacity:.72">Planos públicos dos fabricantes · ago/2026 · Asana e ClickUp em dólar</span></div>
+    </div>
+  </div>
+</section>
+
 <!-- ═══ 21 · SUBSTITUI ═══ -->
 <section class="s deep">
   <div class="meta"><span class="l">Consolidação</span><span class="r">Uma assinatura no lugar de cinco</span></div>
@@ -1067,7 +1160,7 @@ body.hot #ptr{opacity:1}
         <p class="say">A gente configura um quadro real da sua operação, coloca o seu time dentro e mede o resultado. Se não mudar o seu dia, você não continua.</p>
         <div class="ctas">
           <a class="cta" href="https://ariuno.com.br" target="_blank" rel="noopener">Conhecer o Ariuno <span class="ar"><svg><use href="#ar"/></svg></span></a>
-          <button class="cta gh" data-go="23">Rever o investimento</button>
+          <button class="cta gh" data-go="24">Rever o investimento</button>
           <a class="cta gh" href="index.html">Voltar à versão curta</a>
         </div>
       </div>
@@ -1111,6 +1204,7 @@ body.hot #ptr{opacity:1}
     "Governança e permissões",
     "Comparativo de mercado",
     "Preços do mercado",
+    "Comparativo de funcionalidades",
     "Uma assinatura no lugar de cinco",
     "Investimento",
     "Tabela progressiva",
@@ -1118,7 +1212,7 @@ body.hot #ptr{opacity:1}
     "Retorno do investimento",
     "Implantação em 21 dias",
     "Próximo passo"];
-  var HD=[0,1,4,19,22];
+  var HD=[0,1,4,19,23];
   var sl=[].slice.call(document.querySelectorAll('.s')), i=0, n=sl.length;
   var menu=document.getElementById('menu'), ml=document.getElementById('mlist'), pro=document.getElementById('pro');
 
@@ -1190,6 +1284,7 @@ body.hot #ptr{opacity:1}
   document.getElementById('mx').onclick=function(){menu.classList.remove('open')};
 
   document.addEventListener('keydown',function(e){
+    if(lb.classList.contains('open')){ if(e.key==='Escape'||e.key===' ')closeLb(); return; }
     if(menu.classList.contains('open')){ if(e.key==='Escape')menu.classList.remove('open'); return; }
     if(['ArrowRight','PageDown',' '].indexOf(e.key)>-1){e.preventDefault();go(i+1)}
     if(['ArrowLeft','PageUp'].indexOf(e.key)>-1){e.preventDefault();go(i-1)}
@@ -1233,6 +1328,33 @@ body.hot #ptr{opacity:1}
       im.style.visibility='hidden';
       var host=im.parentElement;
       if(host) host.style.background='linear-gradient(135deg,#151934,#1E234A)';
+    });
+  });
+
+
+  /* ══ ampliar prints ══ */
+  var lb=document.createElement('div'); lb.className='zlb';
+  lb.innerHTML='<div class="zlbh"><span class="zlbt"></span><button class="zlbx"><svg style="width:1.15em;height:1.15em"><use href="#k-zoom"/></svg><span class="zlbz">Clique na imagem para 100%</span> · Fechar ✕</button></div><div class="zlbw"><img alt=""></div>';
+  document.body.appendChild(lb);
+  var lbImg=lb.querySelector('img'), lbCap=lb.querySelector('.zlbt'), lbZ=lb.querySelector('.zlbz');
+  var lbT=0;
+  function openLb(src,txt){ lbImg.src=src; lbCap.textContent=txt||''; lb.classList.add('open'); lb.classList.remove('full'); lbZ.textContent='Clique na imagem para 100%'; lbT=Date.now(); }
+  function closeLb(){ lb.classList.remove('open','full'); lbImg.removeAttribute('src'); }
+  lbImg.onclick=function(e){ e.stopPropagation(); if(Date.now()-lbT<400) return; lb.classList.toggle('full');
+    lbZ.textContent=lb.classList.contains('full')?'Clique na imagem para ajustar à tela':'Clique na imagem para 100%'; };
+  lb.onclick=closeLb;
+  document.querySelectorAll('.frame,.shot,.pic .img').forEach(function(box){
+    var im=box.querySelector('img'); if(!im) return;
+    box.classList.add('zoomable');
+    var b=document.createElement('span'); b.className='zbadge';
+    b.innerHTML='<svg><use href="#k-zoom"/></svg>Clique para ampliar';
+    box.appendChild(b);
+    var host=box.closest('.s.pic')||box;
+    host.addEventListener('click',function(e){
+      if(e.target.closest&&e.target.closest('button,a,.chip,.fo,.nav,.mbtn')) return;
+      e.stopPropagation();
+      var cp=box.querySelector('.cp'), tb=box.querySelector('.tb span');
+      openLb(im.currentSrc||im.src,(cp&&cp.textContent)||(tb&&tb.textContent)||im.alt||'');
     });
   });
 
