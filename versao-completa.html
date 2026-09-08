@@ -94,7 +94,7 @@ body.hot #ptr{opacity:1}
 .s.on .bar{animation:wipe .8s cubic-bezier(.2,.82,.24,1) .06s forwards}
 @keyframes wipe{to{transform:scaleX(1)}}
 .s.pic .meta,.s.pic .hair,.s.pic .bar{display:none}
-.body{flex:1;display:flex;flex-direction:column;justify-content:center;min-height:0;
+.body{flex:0 0 auto;margin:auto 0;display:flex;flex-direction:column;justify-content:center;min-height:0;
   padding:clamp(14px,3vw,52px) 0 clamp(10px,1.6vw,26px);gap:clamp(14px,2.4vw,40px)}
 .body.tight{padding:clamp(10px,1.8vw,26px) 0 clamp(6px,.8vw,12px);gap:clamp(10px,1.4vw,22px)}
 .body.mtx{gap:clamp(5px,.6vw,9px);padding:clamp(10px,1.5vw,22px) 0 0}
@@ -348,6 +348,8 @@ body.hot #ptr{opacity:1}
   font-family:var(--mono);font-size:clamp(7.4px,.66vw,10px);letter-spacing:.16em;text-transform:uppercase;
   color:rgba(247,248,253,.95)}
 .gal{display:grid;gap:clamp(7px,.9vw,15px)}
+.gal.duo .frame img{aspect-ratio:2.35;object-fit:cover;object-position:top left}
+.gal.duo .shot.ratio.wide{aspect-ratio:2.9}
 .ratio{aspect-ratio:1834/1137}
 .ratio.tall{aspect-ratio:1834/900}
 .ratio.wide{aspect-ratio:1834/700}
@@ -488,6 +490,53 @@ body.hot #ptr{opacity:1}
 .s.on .mx .mr:nth-child(10){animation-delay:.56s}.s.on .mx .mr:nth-child(11){animation-delay:.60s}
 .s.on .mx .mr:nth-child(12){animation-delay:.64s}.s.on .mx .mr:nth-child(13){animation-delay:.68s}
 
+/* ══════════ EXPLORADOR DE FUNCIONALIDADES ══════════ */
+.expl{display:grid;grid-template-columns:minmax(210px,.92fr) 2fr;gap:clamp(14px,2vw,34px);align-items:start;width:100%}
+.exl{display:flex;flex-direction:column;gap:2px}
+.exi{display:flex;align-items:center;gap:.7em;text-align:left;cursor:none;border:none;background:none;
+  color:inherit;font-family:var(--body);font-weight:500;
+  font-size:clamp(10.4px,.98vw,15.4px);line-height:1.2;padding:clamp(5px,.62vw,10px) clamp(8px,.8vw,13px);
+  border-radius:clamp(6px,.6vw,10px);transition:background .22s,color .22s,transform .22s}
+.exi .dt{width:.5em;height:.5em;border-radius:50%;background:currentColor;opacity:.28;flex:none;transition:.22s}
+.exi:hover{background:rgba(106,92,255,.1)}
+.exi.on{background:var(--iris);color:#fff;transform:translateX(3px)}
+.exi.on .dt{opacity:1;background:var(--lime)}
+.exn{font-family:var(--mono);font-size:clamp(7.4px,.66vw,10.4px);letter-spacing:.14em;text-transform:uppercase;
+  opacity:.5;margin-top:clamp(6px,.8vw,12px)}
+.exr{display:flex;flex-direction:column;gap:clamp(8px,1vw,15px);min-width:0}
+.exinfo{display:grid;grid-template-columns:1fr auto;gap:clamp(10px,1.4vw,26px);align-items:center}
+.exfix{font-size:clamp(11px,1.05vw,17px);line-height:1.34;opacity:.8;max-width:44ch}
+.exret{display:flex;align-items:center;gap:.65em;background:var(--lime);color:var(--lab-ink);
+  padding:clamp(7px,.75vw,13px) clamp(11px,1.1vw,19px);border-radius:999px;white-space:nowrap}
+.exret b{font-family:var(--mono);font-size:clamp(7.2px,.62vw,9.8px);letter-spacing:.16em;text-transform:uppercase;opacity:.62}
+.exret span{font-family:var(--disp);font-weight:800;font-stretch:112%;font-size:clamp(10.6px,1vw,16px);letter-spacing:-.01em}
+.s.on .exi{animation:fadeup .45s cubic-bezier(.2,.85,.3,1) backwards}
+.s.on .exi:nth-child(1){animation-delay:.22s}.s.on .exi:nth-child(2){animation-delay:.25s}
+.s.on .exi:nth-child(3){animation-delay:.28s}.s.on .exi:nth-child(4){animation-delay:.31s}
+.s.on .exi:nth-child(5){animation-delay:.34s}.s.on .exi:nth-child(6){animation-delay:.37s}
+.s.on .exi:nth-child(7){animation-delay:.40s}.s.on .exi:nth-child(8){animation-delay:.43s}
+.s.on .exi:nth-child(9){animation-delay:.46s}.s.on .exi:nth-child(10){animation-delay:.49s}
+.eximg{transition:opacity .28s}
+.eximg.sw{opacity:0}
+
+/* ══════════ CENÁRIOS DE USO ══════════ */
+.usos{display:grid;grid-template-columns:repeat(5,1fr);gap:clamp(8px,1vw,16px);width:100%}
+.uso{display:flex;flex-direction:column;gap:clamp(6px,.7vw,11px);padding:clamp(11px,1.2vw,20px);
+  border-radius:clamp(9px,1vw,16px);background:rgba(11,13,30,.04);box-shadow:inset 0 0 0 1px rgba(11,13,30,.1);
+  transition:transform .35s cubic-bezier(.2,.9,.3,1),background .3s,box-shadow .3s}
+.s:not(.paper) .uso{background:rgba(247,248,253,.055);box-shadow:inset 0 0 0 1px rgba(247,248,253,.14)}
+.uso:hover{transform:translateY(-5px);background:rgba(106,92,255,.12);box-shadow:inset 0 0 0 1px var(--iris)}
+.uso .ic{width:clamp(22px,2.1vw,32px);height:clamp(22px,2.1vw,32px)}
+.uso .ut{font-family:var(--disp);font-weight:800;font-stretch:118%;text-transform:uppercase;
+  font-size:clamp(11.6px,1.15vw,18px);line-height:1.04;letter-spacing:-.02em}
+.uso .ud{font-size:clamp(10px,.9vw,14px);line-height:1.36;opacity:.72;flex:1}
+.uso .ur{border-top:1px solid currentColor;padding-top:clamp(6px,.65vw,10px);margin-top:auto}
+.uso .ur b{display:block;font-family:var(--mono);font-size:clamp(6.8px,.6vw,9.4px);letter-spacing:.16em;
+  text-transform:uppercase;opacity:.5;margin-bottom:.4em}
+.uso .ur span{font-size:clamp(10.2px,.94vw,14.6px);line-height:1.3;font-weight:500}
+.uso .ur em{font-style:normal;color:var(--iris-d)}
+.s:not(.paper) .uso .ur em{color:var(--iris-l)}
+
 /* ══════════ ÍNDICE ══════════ */
 .menu{position:fixed;inset:0;background:var(--ink-d);z-index:300;display:none;
   padding:clamp(24px,4.6vw,72px) var(--pad);overflow:auto}
@@ -596,6 +645,21 @@ body.hot #ptr{opacity:1}
   .zlb{padding:12px}
   .zlb .zlbt,.zlb .zlbx{font-size:9.6px;letter-spacing:.12em}
   .zlb .zlbz{display:none}
+  .expl{grid-template-columns:1fr;gap:clamp(12px,3.4vw,18px)}
+  .exl{flex-direction:row;flex-wrap:wrap;gap:6px}
+  .exi{font-size:clamp(11px,3vw,13px);padding:.6em .9em;border-radius:999px;
+    box-shadow:inset 0 0 0 1px rgba(11,13,30,.16)}
+  .exi.on{box-shadow:none;transform:none}
+  .exi .dt{display:none}
+  .exn{display:none}
+  .exinfo{grid-template-columns:1fr;gap:clamp(9px,2.6vw,14px)}
+  .exfix{font-size:clamp(13px,3.6vw,16px);max-width:none}
+  .exret{white-space:normal;align-self:flex-start}
+  .exret span{font-size:clamp(12px,3.4vw,15px)}
+  .usos{grid-template-columns:1fr}
+  .uso .ut{font-size:clamp(15px,4.4vw,20px)}
+  .uso .ud{font-size:clamp(12.6px,3.5vw,15px)}
+  .uso .ur span{font-size:clamp(12.6px,3.5vw,15px)}
   /* sangria vira card + texto no mobile */
   .s.pic{padding:clamp(14px,3.6vw,22px) clamp(16px,4.6vw,26px) clamp(12px,3vw,18px);
     justify-content:flex-start;background:var(--ink)}
@@ -745,11 +809,9 @@ body.hot #ptr{opacity:1}
         <h1 class="mega sm"><span class="ln"><i>Uma plataforma.</i></span><span class="ln"><i><em>Toda</em> a sua</i></span><span class="ln"><i>operação.</i></span></h1>
         <p class="say fu">O sistema que a <b>75 LAB</b> construiu para tocar a própria casa — do <b>briefing</b> ao <b>relatório do cliente</b>. Agora aberto para a sua empresa.</p>
         <div class="ctas">
-          <a class="cta" href="https://ariuno.com.br/?demo=1" target="_blank" rel="noopener">Abrir a demonstração <span class="ar"><svg><use href="#ar"/></svg></span></a>
-          <button class="cta gh" data-go="5">Ver a plataforma</button>
-          <button class="cta gh" data-go="24">Investimento</button>
+          <button class="cta" data-go="5">Ver a plataforma <span class="ar"><svg><use href="#ar"/></svg></span></button>
+          <button class="cta gh" data-go="25">Ir direto ao investimento</button>
         </div>
-        <p class="disc fu" style="margin-top:-.3em">Abre na hora, sem login e sem cadastro — com dados de exemplo.</p>
       </div>
       <div class="gal" style="gap:clamp(8px,1vw,16px)">
         <div class="frame fu">
@@ -820,7 +882,7 @@ body.hot #ptr{opacity:1}
       <span class="ic big"><svg><use href="#ariuno"/></svg></span>
       <span class="kicker">Feito por quem opera</span>
     </div>
-    <h2 class="mega"><span class="ln"><i>Ariuno.</i></span><span class="ln"><i>Do briefing ao</i></span><span class="ln"><i><em>relatório</em> do cliente.</i></span></h2>
+    <h2 class="mega sm"><span class="ln"><i>Ariuno.</i></span><span class="ln"><i>Do briefing ao</i></span><span class="ln"><i><em>relatório</em> do cliente.</i></span></h2>
     <p class="say w">Não é um software que a gente comprou para revender. É a plataforma que <b>roda a 75 LAB todos os dias</b> — com 19 usuários, 97 clientes e centenas de entregas por mês. Cada tela nasceu de um problema real de operação.</p>
     <div class="ctas"><button class="cta ir" data-go="6">Ver funcionando <span class="ar"><svg><use href="#ar"/></svg></span></button></div>
   </div>
@@ -988,7 +1050,7 @@ body.hot #ptr{opacity:1}
   <div class="body">
     <h2 class="mega xs"><span class="ln"><i>Não é só o time de entrega.</i></span><span class="ln"><i>É a <em>empresa inteira.</em></i></span></h2>
     <div class="sp-b">
-      <div class="gal" style="gap:clamp(7px,.9vw,14px)">
+      <div class="gal duo" style="gap:clamp(7px,.9vw,14px)">
         <div class="frame">
           <div class="tb"><i></i><i></i><i></i><span>ariuno.com.br · financeiro</span></div>
           <img src="assets/shots/17-financeiro.png" alt="Módulo financeiro do Ariuno">
@@ -1058,7 +1120,7 @@ body.hot #ptr{opacity:1}
           <div class="row"><span class="k">Notificação push</span><span class="v"><em>Em tempo real</em></span></div>
         </div>
       </div>
-      <div class="gal" style="gap:clamp(7px,.9vw,14px)">
+      <div class="gal duo" style="gap:clamp(7px,.9vw,14px)">
         <div class="frame">
           <div class="tb"><i></i><i></i><i></i><span>ariuno.com.br · mural</span></div>
           <img src="assets/shots/01-mural.png" alt="Mural interno do Ariuno">
@@ -1089,6 +1151,49 @@ body.hot #ptr{opacity:1}
           <div class="row"><span class="k">Infraestrutura</span><span class="v">Google Firebase</span></div>
         </div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 19b · POSSIBILIDADES DE USO ═══ -->
+<section class="s">
+  <div class="meta"><span class="l">Possibilidades de uso</span><span class="r">O mesmo sistema, cinco operações diferentes</span></div>
+  <div class="body tight">
+    <h2 class="mega xs"><span class="ln"><i>Não é um software de agência.</i></span><span class="ln"><i>É um <em>sistema de operação.</em></i></span></h2>
+    <div class="usos">
+      <div class="uso fu">
+        <span class="ic"><svg><use href="#k-rocket"/></svg></span>
+        <span class="ut">Agência e trade</span>
+        <span class="ud">Briefing do cliente, produção, aprovação, entrega e horas × contrato — com portal para o cliente acompanhar.</span>
+        <span class="ur"><b>O retorno</b><span>Contrato estourado aparece <em>no meio do mês</em>, não na renovação.</span></span>
+      </div>
+      <div class="uso fu">
+        <span class="ic"><svg><use href="#k-layers"/></svg></span>
+        <span class="ut">Indústria</span>
+        <span class="ud">Pedidos de filiais, regionais e áreas viram uma fila só, com responsável, prazo e aprovação de compras.</span>
+        <span class="ur"><b>O retorno</b><span>Fim do pedido por e-mail que <em>ninguém achou</em>.</span></span>
+      </div>
+      <div class="uso fu">
+        <span class="ic"><svg><use href="#k-board"/></svg></span>
+        <span class="ut">Varejo e PDV</span>
+        <span class="ud">Implantação de loja, enxoval de PDV e cronograma por praça, com foto de execução e checklist.</span>
+        <span class="ur"><b>O retorno</b><span>Abertura sem <em>surpresa de prazo</em> na véspera.</span></span>
+      </div>
+      <div class="uso fu">
+        <span class="ic"><svg><use href="#k-clock"/></svg></span>
+        <span class="ut">Serviços por hora</span>
+        <span class="ud">Jurídico, contábil, arquitetura e TI: hora por cliente, aprovação documentada e relatório de consumo.</span>
+        <span class="ur"><b>O retorno</b><span>Hora trabalhada vira <em>hora faturada</em>.</span></span>
+      </div>
+      <div class="uso fu">
+        <span class="ic"><svg><use href="#k-shield"/></svg></span>
+        <span class="ut">Times internos</span>
+        <span class="ud">RH, compras e financeiro recebem solicitações com aprovação, comprovante e histórico de quem decidiu.</span>
+        <span class="ur"><b>O retorno</b><span>Auditoria <em>pronta</em>, sem caçar e-mail.</span></span>
+      </div>
+    </div>
+    <div class="chips">
+      <span class="chip on">Comercial</span><span class="chip on">Financeiro</span><span class="chip on">Compras</span><span class="chip on">Criação</span><span class="chip on">Tráfego</span><span class="chip on">Social Mídia</span><span class="chip on">Marketing</span><span class="chip on">RH</span><span class="chip on">Diretoria</span>
     </div>
   </div>
 </section>
@@ -1270,16 +1375,16 @@ body.hot #ptr{opacity:1}
     <div class="sp">
       <div class="stack" style="gap:clamp(11px,1.5vw,23px)">
         <span class="ic big"><svg><use href="#k-rocket"/></svg></span>
-        <h2 class="mega sm"><span class="ln"><i>Comece pelo</i></span><span class="ln"><i><em>piloto</em> de 30 dias.</i></span></h2>
+        <h2 class="mega xs"><span class="ln"><i>Comece pelo</i></span><span class="ln"><i><em>piloto</em> de 30 dias.</i></span></h2>
         <p class="say">A gente configura um quadro real da sua operação, coloca o seu time dentro e mede o resultado. Se não mudar o seu dia, você não continua.</p>
         <div class="ctas">
-          <a class="cta" href="https://ariuno.com.br/?demo=1" target="_blank" rel="noopener">Abrir a demonstração <span class="ar"><svg><use href="#ar"/></svg></span></a>
-          <button class="cta gh" data-go="24">Rever o investimento</button>
+          <a class="cta" href="https://ariuno.com.br" target="_blank" rel="noopener">Conhecer o Ariuno <span class="ar"><svg><use href="#ar"/></svg></span></a>
+          <button class="cta gh" data-go="25">Rever o investimento</button>
           <a class="cta gh" href="index.html">Voltar à versão curta</a>
         </div>
       </div>
       <div class="rows">
-        <div class="row"><span class="k">Demonstração aberta</span><span class="v">ariuno.com.br/?demo=1</span></div>
+        <div class="row"><span class="k">Plataforma</span><span class="v">ariuno.com.br</span></div>
         <div class="row"><span class="k">Quem construiu</span><span class="v">75 LAB</span></div>
         <div class="row"><span class="k">Site</span><span class="v">75lab.com.br</span></div>
         <div class="row hi"><span class="k">Piloto</span><span class="v"><em>30 dias</em></span></div>
@@ -1316,6 +1421,7 @@ body.hot #ptr{opacity:1}
     "Ariuno IA",
     "Mural, avisos e app",
     "Governança e permissões",
+    "Possibilidades de uso",
     "Comparativo de mercado",
     "Preços do mercado",
     "Comparativo de funcionalidades",
@@ -1326,7 +1432,7 @@ body.hot #ptr{opacity:1}
     "Retorno do investimento",
     "Implantação em 21 dias",
     "Próximo passo"];
-  var HD=[0,1,4,19,23];
+  var HD=[0,1,4,20,24];
   var sl=[].slice.call(document.querySelectorAll('.s')), i=0, n=sl.length;
   var menu=document.getElementById('menu'), ml=document.getElementById('mlist'), pro=document.getElementById('pro');
 

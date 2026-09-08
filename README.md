@@ -24,7 +24,6 @@ que a 75 LAB construiu e usa todos os dias — para outras empresas.
   invadir o rodapé), a tipografia sobe para mínimos de leitura no celular, os prints
   passam a 16:10, as telas em sangria viram card + texto e a matriz rola na horizontal
   com a primeira coluna fixa
-- **Botão da demonstração** na capa e no fechamento — `ariuno.com.br/?demo=1`, abre sem login
 - Prints capturados da operação real e **anonimizados**: nomes de clientes trocados por
   marcas fictícias, e-mails mascarados, nomes de pessoas substituídos e fotos desfocadas
 
@@ -35,10 +34,10 @@ que a 75 LAB construiu e usa todos os dias — para outras empresas.
 | 01 | Capa · uma plataforma, toda a sua operação |
 | 02 | O problema · a conta do retrabalho |
 | 03 | Do briefing à nota fiscal · o ciclo em 6 etapas |
-| 04 | O produto em uso · quatro leituras do mesmo dado |
+| 04 | O que você faz com o Ariuno · explorador de 10 funcionalidades |
 | 05 | A hora vira dinheiro · horas × contrato |
 | 06 | O cliente vê valor · relatório em um link |
-| 07 | A empresa inteira · áreas, adoção e IA |
+| 07 | Possibilidades de uso · cinco operações e o retorno de cada uma |
 | 08 | Comparativo de funcionalidades · matriz contra 5 concorrentes |
 | 09 | Investimento · tabela progressiva e ROI |
 | 10 | Próximo passo · piloto de 30 dias |
