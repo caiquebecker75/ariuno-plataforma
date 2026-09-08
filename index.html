@@ -97,6 +97,8 @@ body.hot #ptr{opacity:1}
 .body{flex:1;display:flex;flex-direction:column;justify-content:center;min-height:0;
   padding:clamp(14px,3vw,52px) 0 clamp(10px,1.6vw,26px);gap:clamp(14px,2.4vw,40px)}
 .body.tight{padding:clamp(10px,1.8vw,26px) 0 clamp(6px,.8vw,12px);gap:clamp(10px,1.4vw,22px)}
+.body.mtx{gap:clamp(5px,.6vw,9px);padding:clamp(10px,1.5vw,22px) 0 0}
+.mega.mxt{font-size:clamp(14px,1.85vw,29px)}
 
 /* ══════════ TIPOGRAFIA ══════════ */
 .mega{font-family:var(--disp);font-weight:900;font-stretch:125%;
@@ -442,34 +444,42 @@ body.hot #ptr{opacity:1}
 .zlb.full img{max-width:none;max-height:none;width:auto;height:auto}
 
 /* ══════════ MATRIZ COMPARATIVA ══════════ */
+.mxwrap{width:100%}
 .mx{width:100%}
-.mx .mr{display:grid;grid-template-columns:minmax(150px,1.75fr) repeat(6,minmax(46px,1fr));
-  align-items:center;border-top:1px solid currentColor;padding:clamp(3px,.36vw,7px) 0}
-.mx .mr>*{min-width:0}
-.mx .mh{border-top:none;padding-bottom:clamp(5px,.6vw,10px)}
-.mx .mh>span{font-family:var(--mono);font-size:clamp(6.8px,.62vw,10px);letter-spacing:.1em;
-  text-transform:uppercase;opacity:.55;text-align:center;line-height:1.2}
-.mx .mh>span:first-child{text-align:left}
-.mx .mh>span.a{opacity:1;color:var(--iris);font-weight:700;letter-spacing:.12em}
-.s.deep .mx .mh>span.a,.s .mx .mh>span.a{color:var(--iris-l)}
-.s.paper .mx .mh>span.a{color:var(--iris)}
-.mx .k{font-size:clamp(8.6px,.78vw,12.8px);line-height:1.2;padding-right:.8em}
-.mx .k b{display:block;font-family:var(--mono);font-weight:400;font-size:.7em;letter-spacing:.08em;
-  text-transform:uppercase;opacity:.48;margin-top:.28em;line-height:1.3}
-.mx i{font-style:normal;text-align:center;font-family:var(--disp);font-weight:800;
-  font-size:clamp(11px,1.02vw,17px);line-height:1}
-.mx i.y{color:var(--gr)}
-.mx i.p{opacity:.42;font-weight:400}
-.mx i.n{opacity:.24;font-weight:400}
-.mx i.v{font-size:clamp(9.4px,.86vw,14px);letter-spacing:-.01em}
-.mx .mr>*:nth-child(2){background:rgba(106,92,255,.13);padding:clamp(3px,.36vw,7px) .3em;margin:calc(-1*clamp(3px,.36vw,7px)) 0}
-.mx .mr.mh>*:nth-child(2){border-radius:9px 9px 0 0;padding-top:clamp(6px,.7vw,11px)}
-.mx .mr:last-child>*:nth-child(2){border-radius:0 0 9px 9px;padding-bottom:clamp(6px,.7vw,11px)}
-.mx .mr.win>*:nth-child(2) i{color:var(--iris)}
-.s.paper .mx .mr.win>*:nth-child(2) i{color:var(--iris-d)}
-.mx .lg{display:flex;gap:clamp(10px,1.4vw,24px);flex-wrap:wrap;margin-top:clamp(5px,.6vw,10px);
-  font-family:var(--mono);font-size:clamp(7.2px,.64vw,10.2px);letter-spacing:.12em;text-transform:uppercase;opacity:.5}
+.mx .mr{display:grid;grid-template-columns:minmax(190px,2.1fr) repeat(6,minmax(58px,1fr));
+  align-items:stretch;border-top:1px solid currentColor}
+.mx .mr>*{min-width:0;display:flex;align-items:center;padding:clamp(2.6px,.3vw,5.4px) 0}
+.mx .mh{border-top:none}
+.mx .mh>span{font-family:var(--mono);font-size:clamp(7.6px,.7vw,11px);letter-spacing:.1em;
+  text-transform:uppercase;opacity:.55;justify-content:center;text-align:center;line-height:1.2}
+.mx .mh>span:first-child{justify-content:flex-start;text-align:left}
+.mx .mh>span.a{opacity:1;color:#fff;font-weight:700;letter-spacing:.14em;font-size:clamp(8.4px,.78vw,12px)}
+.mx .k{font-size:clamp(10px,.96vw,15.4px);line-height:1.22;padding-right:1em;font-weight:500}
+.mx i{font-style:normal;justify-content:center;width:100%}
+.mx i>span{display:grid;place-items:center;width:clamp(17px,1.66vw,25px);height:clamp(17px,1.66vw,25px);
+  border-radius:50%;font-family:var(--disp);font-weight:800;font-size:clamp(10px,1.02vw,16px);line-height:1}
+.mx i.y>span{background:rgba(14,138,106,.14);color:var(--gr)}
+.mx i.p>span{box-shadow:inset 0 0 0 1.5px currentColor;opacity:.38;font-weight:400}
+.mx i.n>span{opacity:.22;font-weight:400}
+/* coluna Ariuno: painel sólido */
+.mx .mr>*:nth-child(2){background:var(--iris);color:#fff;justify-content:center;padding-left:.4em;padding-right:.4em}
+.mx .mr.mh>*:nth-child(2){border-radius:clamp(8px,.9vw,14px) clamp(8px,.9vw,14px) 0 0;padding-top:clamp(8px,.85vw,14px)}
+.mx .mr:last-of-type>*:nth-child(2){border-radius:0 0 clamp(8px,.9vw,14px) clamp(8px,.9vw,14px);padding-bottom:clamp(8px,.85vw,14px)}
+.mx .mr>*:nth-child(2).y>span{background:#fff;color:var(--iris-d);box-shadow:0 3px 10px -4px rgba(0,0,0,.45);font-size:clamp(11px,1.1vw,17px)}
+.mx .mr:not(.mh)>*:nth-child(2){border-top:1px solid rgba(255,255,255,.16)}
+/* linha de preço */
+.mx .mr.pr{border-top-width:2px}
+.mx .mr.pr .k{font-family:var(--mono);font-size:clamp(8.4px,.76vw,11.6px);letter-spacing:.12em;text-transform:uppercase;opacity:.62}
+.mx i.v>span{width:auto;height:auto;border-radius:0;background:none!important;box-shadow:none!important;opacity:1;
+  font-size:clamp(11px,1.12vw,19px);letter-spacing:-.02em;white-space:nowrap}
+.mx .mr.pr>*:nth-child(2).v>span{color:#fff}
+.mx i.v.p>span{opacity:.55;font-weight:600}
+.mx .lg{display:flex;gap:clamp(10px,1.4vw,24px);flex-wrap:wrap;margin-top:clamp(7px,.85vw,13px);
+  font-family:var(--mono);font-size:clamp(7.4px,.66vw,10.6px);letter-spacing:.12em;text-transform:uppercase;opacity:.52}
 .mx .lg b{font-family:var(--disp);opacity:1;margin-right:.4em}
+.mx .lg b.y{color:var(--gr)}
+.mxhint{display:none;align-items:center;gap:.5em;font-family:var(--mono);font-size:11px;letter-spacing:.12em;
+  text-transform:uppercase;opacity:.55;margin-bottom:6px}
 .s.on .mx .mr{animation:fadeup .5s cubic-bezier(.2,.85,.3,1) backwards}
 .s.on .mx .mr:nth-child(2){animation-delay:.24s}.s.on .mx .mr:nth-child(3){animation-delay:.28s}
 .s.on .mx .mr:nth-child(4){animation-delay:.32s}.s.on .mx .mr:nth-child(5){animation-delay:.36s}
@@ -477,7 +487,6 @@ body.hot #ptr{opacity:1}
 .s.on .mx .mr:nth-child(8){animation-delay:.48s}.s.on .mx .mr:nth-child(9){animation-delay:.52s}
 .s.on .mx .mr:nth-child(10){animation-delay:.56s}.s.on .mx .mr:nth-child(11){animation-delay:.60s}
 .s.on .mx .mr:nth-child(12){animation-delay:.64s}.s.on .mx .mr:nth-child(13){animation-delay:.68s}
-@media(max-width:900px){.mx .mr{grid-template-columns:minmax(120px,1.4fr) repeat(6,minmax(34px,1fr))}}
 
 /* ══════════ ÍNDICE ══════════ */
 .menu{position:fixed;inset:0;background:var(--ink-d);z-index:300;display:none;
@@ -509,6 +518,107 @@ body.hot #ptr{opacity:1}
   .say{max-width:36ch}
   .pic .scrim{background:linear-gradient(0deg,rgba(6,7,15,.97) 26%,rgba(6,7,15,.52) 66%,rgba(6,7,15,.12) 100%)}
 }
+/* ══════════ RESPONSIVO · TABLET ══════════ */
+@media(max-width:1180px){
+  .mx .mr{grid-template-columns:minmax(160px,1.9fr) repeat(6,minmax(50px,1fr))}
+  .mx .k{font-size:clamp(10px,1.1vw,14px)}
+  .row .v{font-size:clamp(14px,2vw,24px)}
+}
+
+/* ══════════ RESPONSIVO · MOBILE ══════════ */
+@media(max-width:900px){
+  .deck{height:100dvh}
+  .s{padding:clamp(14px,3.6vw,22px) clamp(16px,4.6vw,26px) clamp(12px,3vw,18px)}
+  /* o corpo passa a ter altura natural: a tela rola e o rodape fica no fim */
+  .body,.body.tight,.body.mtx{flex:0 0 auto;justify-content:flex-start;
+    padding:clamp(16px,4.4vw,24px) 0 clamp(18px,4.6vw,26px);gap:clamp(15px,4vw,22px)}
+  .meta{font-size:clamp(9.2px,2.5vw,11px);gap:10px}
+  .meta .r{white-space:normal}
+  .mega.mxt{font-size:clamp(21px,6.6vw,32px)}
+  .say{font-size:clamp(15px,4.2vw,19px);max-width:none;line-height:1.4}
+  .say.sm{font-size:clamp(14px,3.9vw,17px);max-width:none}
+  .say.w{max-width:none}
+  .tag{font-size:clamp(10px,2.8vw,12px)}
+  .disc{font-size:clamp(9.6px,2.6vw,11.4px);line-height:1.6}
+  .kicker{font-size:clamp(11px,3.1vw,14px)}
+  .chip{font-size:clamp(10px,2.8vw,12.4px);padding:.62em 1.1em}
+  .cta{font-size:clamp(13px,3.6vw,16px);padding:.95em 1.5em}
+  .ctas{width:100%}
+  .cta{flex:1 1 auto;justify-content:center}
+  .row{padding:clamp(9px,2.6vw,14px) 0}
+  .row .k{font-size:clamp(10px,2.8vw,12px)}
+  .row .k b{font-size:1.2em;line-height:1.35}
+  .row .v{font-size:clamp(15px,4.6vw,21px)}
+  .row .v s{font-size:.52em}
+  .cd .t{font-size:clamp(16px,4.8vw,22px)}
+  .cd .d{font-size:clamp(12.6px,3.5vw,15px)}
+  .cd .n{font-size:clamp(9.6px,2.6vw,11.4px)}
+  .num{font-size:clamp(76px,26vw,130px)}
+  .num.mid{font-size:clamp(60px,21vw,110px)}
+  .num.sm{font-size:clamp(46px,15vw,88px)}
+  .bn .lb{font-size:clamp(10px,2.7vw,12px);max-width:none}
+  .fnode .ft,.step .t{font-size:clamp(15px,4.4vw,20px)}
+  .fnode .fd,.step .d{font-size:clamp(12.6px,3.4vw,15px);max-width:none}
+  .fnode .fn{font-size:clamp(22px,7vw,34px)}
+  .fnode{padding:clamp(11px,3vw,16px) 0}
+  .li{font-size:clamp(12.8px,3.5vw,15.4px)}
+  .duo .hd b{font-size:clamp(17px,5vw,24px)}
+  .gr{grid-template-columns:clamp(62px,20vw,104px) 1fr;gap:10px}
+  .gt{height:clamp(26px,7.4vw,36px)}
+  .gt>i{font-size:clamp(9px,2.5vw,11.6px);padding:0 .7em}
+  .fo{padding-top:clamp(10px,2.6vw,14px)}
+  .fo .bd img{height:clamp(12px,3.2vw,15px)}
+  .fo .bd .x,.fo .bd span.n{font-size:clamp(8.6px,2.4vw,10.4px)}
+  .pg{font-size:clamp(10px,2.7vw,12px)}
+  .nb{width:clamp(30px,8.4vw,36px);height:clamp(30px,8.4vw,36px)}
+  .mbtn{font-size:clamp(9.4px,2.5vw,11px)}
+  /* prints mais baixos: o detalhe vive no zoom */
+  .shot.ratio,.shot.ratio.tall,.shot.ratio.wide{aspect-ratio:16/10}
+  .frame img{aspect-ratio:16/10;object-fit:cover;object-position:top left}
+  .frame .tb span{font-size:clamp(8.4px,2.3vw,10px);max-width:none}
+  .shot .cp{font-size:clamp(8.6px,2.4vw,10.4px)}
+  .zbadge{font-size:clamp(8.6px,2.4vw,10.4px);padding:.55em .9em}
+  .gal.g2,.gal.g3{gap:clamp(9px,2.6vw,14px)}
+  /* matriz: rola na horizontal com a 1a coluna fixa */
+  .mxhint{display:flex}
+  .mxwrap{overflow-x:auto;-webkit-overflow-scrolling:touch;
+    margin:0 calc(-1 * clamp(16px,4.6vw,26px));padding:0 clamp(16px,4.6vw,26px)}
+  .mx{min-width:660px}
+  .mx .mr{grid-template-columns:190px repeat(6,1fr)}
+  .mx .mr>*:first-child{position:sticky;left:0;z-index:3;background:var(--paper);
+    padding-right:.8em;box-shadow:8px 0 12px -10px rgba(11,13,30,.5)}
+  .mx .k{font-size:13px}
+  .mx .mh>span{font-size:9.4px}
+  .mx .mh>span.a{font-size:10.4px}
+  .mx i>span{width:24px;height:24px;font-size:13px}
+  .mx .lg,.body .lg{font-size:9.6px!important;gap:12px!important}
+  /* lightbox */
+  .zlb{padding:12px}
+  .zlb .zlbt,.zlb .zlbx{font-size:9.6px;letter-spacing:.12em}
+  .zlb .zlbz{display:none}
+  /* sangria vira card + texto no mobile */
+  .s.pic{padding:clamp(14px,3.6vw,22px) clamp(16px,4.6vw,26px) clamp(12px,3vw,18px);
+    justify-content:flex-start;background:var(--ink)}
+  .pic .img{position:relative;inset:auto;flex:none;aspect-ratio:16/10;
+    border-radius:clamp(8px,2.4vw,14px);overflow:hidden;
+    box-shadow:0 24px 60px -30px rgba(0,0,0,.8),0 0 0 1px rgba(247,248,253,.12)}
+  .pic .img img{transform:none!important;animation:none!important;object-position:top left}
+  .pic .scrim{display:none}
+  .pic .cap{padding:clamp(16px,4.4vw,22px) 0 clamp(14px,3.6vw,20px)}
+  .pic .fo{margin:0}
+}
+@media(max-width:560px){
+  .mega{font-size:clamp(30px,10.4vw,52px)}
+  .mega.sm{font-size:clamp(27px,9.4vw,46px)}
+  .mega.xs{font-size:clamp(23px,7.6vw,38px)}
+  .mega.xxl{font-size:clamp(34px,12vw,60px)}
+  .g3.keep,.g4.keep{grid-template-columns:1fr}
+  .ctas{flex-direction:column;align-items:stretch}
+  .cta{width:100%}
+  .gt>i{font-size:8.6px;padding:0 .5em}
+  .gr{grid-template-columns:58px 1fr}
+}
+
 @media print{
   body{overflow:visible;cursor:auto}#cur,#dot,#ptr,.pro,.menu{display:none}
   .deck{position:static}
@@ -624,7 +734,7 @@ body.hot #ptr{opacity:1}
   <div class="meta"><span class="l">Apresentação comercial · Plataforma Ariuno</span><span class="r">75 LAB · 2026</span></div>
   <div class="body">
     <div class="sp">
-      <div class="stack" style="gap:clamp(14px,2vw,30px)">
+      <div class="stack" style="gap:clamp(11px,1.5vw,23px)">
         <div class="fu" style="display:flex;align-items:center;gap:clamp(12px,1.6vw,26px)">
           <span class="ic" style="color:var(--iris-l);width:clamp(30px,3vw,48px);height:clamp(30px,3vw,48px)"><svg><use href="#ariuno"/></svg></span>
           <span style="font-family:var(--disp);font-weight:900;font-stretch:118%;font-size:clamp(22px,2.6vw,44px);letter-spacing:-.045em">ariuno</span>
@@ -634,9 +744,11 @@ body.hot #ptr{opacity:1}
         <h1 class="mega sm"><span class="ln"><i>Uma plataforma.</i></span><span class="ln"><i><em>Toda</em> a sua</i></span><span class="ln"><i>operação.</i></span></h1>
         <p class="say fu">Do <b>briefing</b> à <b>nota fiscal</b>, num sistema só. Não é software que compramos para revender: é o que <b>roda a 75 LAB todos os dias</b>.</p>
         <div class="ctas">
-          <button class="cta" data-go="1">Por que trocar <span class="ar"><svg><use href="#ar"/></svg></span></button>
-          <button class="cta gh" data-go="8">Ir ao investimento</button>
+          <a class="cta" href="https://ariuno.com.br/?demo=1" target="_blank" rel="noopener">Abrir a demonstração <span class="ar"><svg><use href="#ar"/></svg></span></a>
+          <button class="cta gh" data-go="1">Por que trocar</button>
+          <button class="cta gh" data-go="8">Investimento</button>
         </div>
+        <p class="disc fu" style="margin-top:-.3em">Abre na hora, sem login e sem cadastro — com dados de exemplo.</p>
       </div>
       <div class="gal" style="gap:clamp(8px,1vw,16px)">
         <div class="frame fu">
@@ -787,23 +899,25 @@ body.hot #ptr{opacity:1}
 <!-- ═══ 08 · COMPARATIVO ═══ -->
 <section class="s paper">
   <div class="meta"><span class="l">Comparativo de funcionalidades</span><span class="r">Planos publicados · agosto de 2026</span></div>
-  <div class="body tight" style="gap:clamp(7px,.9vw,14px);padding:clamp(16px,2.2vw,30px) 0 clamp(4px,.5vw,8px)">
-    <h2 class="mega xs" style="font-size:clamp(15px,2.4vw,38px)"><span class="ln"><i>Não é o mesmo produto</i></span><span class="ln"><i>com <em>preço diferente.</em></i></span></h2>
-    <div class="mx">
-      <div class="mr mh"><span>O que a operação precisa</span><span class="a">ARIUNO</span><span>monday</span><span>Asana</span><span>ClickUp</span><span>Runrun.it</span><span>Operand</span></div>
-      <div class="mr"><span class="k">Quadros, lista, Gantt e calendário<b>o básico — todo mundo entrega</b></span><i class="y">✓</i><i class="y">✓</i><i class="y">✓</i><i class="y">✓</i><i class="y">✓</i><i class="p">~</i></div>
-      <div class="mr win"><span class="k">Timer na tarefa e apontamento de horas<b>sem planilha paralela</b></span><i class="y">✓</i><i class="p">~</i><i class="p">~</i><i class="y">✓</i><i class="y">✓</i><i class="y">✓</i></div>
-      <div class="mr win"><span class="k">Horas consumidas × horas contratadas<b>o alerta de contrato estourado</b></span><i class="y">✓</i><i class="n">—</i><i class="n">—</i><i class="n">—</i><i class="p">~</i><i class="p">~</i></div>
-      <div class="mr win"><span class="k">Aprovação com histórico, interna e do cliente<b>quem aprovou, quando e com que ressalva</b></span><i class="y">✓</i><i class="p">~</i><i class="p">~</i><i class="p">~</i><i class="n">—</i><i class="p">~</i></div>
-      <div class="mr win"><span class="k">Relatório do cliente em link público e PDF<b>a prova de valor que renova contrato</b></span><i class="y">✓</i><i class="p">~</i><i class="n">—</i><i class="p">~</i><i class="p">~</i><i class="p">~</i></div>
-      <div class="mr win"><span class="k">Usuário “cliente” ilimitado e sem custo<b>seu cliente entra sem virar assento pago</b></span><i class="y">✓</i><i class="n">—</i><i class="p">~</i><i class="p">~</i><i class="n">—</i><i class="p">~</i></div>
-      <div class="mr win"><span class="k">Financeiro: orçamento, despesa e faturamento<b>a tarefa vira dinheiro no mesmo sistema</b></span><i class="y">✓</i><i class="n">—</i><i class="n">—</i><i class="n">—</i><i class="n">—</i><i class="y">✓</i></div>
-      <div class="mr win"><span class="k">Módulos prontos por área da empresa<b>compras, criação, tráfego, RH, diretoria</b></span><i class="y">✓</i><i class="p">~</i><i class="n">—</i><i class="p">~</i><i class="n">—</i><i class="p">~</i></div>
-      <div class="mr win"><span class="k">Gamificação para o time querer usar<b>sem adoção, o dado do relatório não vale nada</b></span><i class="y">✓</i><i class="n">—</i><i class="n">—</i><i class="n">—</i><i class="n">—</i><i class="n">—</i></div>
-      <div class="mr win"><span class="k">IA que lê o dado da sua empresa<b>pergunta em português, responde com o seu número</b></span><i class="y">✓</i><i class="p">~</i><i class="p">~</i><i class="p">~</i><i class="n">—</i><i class="n">—</i></div>
-      <div class="mr win"><span class="k">White-label: sua marca e seu domínio<b>a plataforma vira produto da sua empresa</b></span><i class="y">✓</i><i class="n">—</i><i class="n">—</i><i class="n">—</i><i class="n">—</i><i class="n">—</i></div>
-      <div class="mr win"><span class="k">Preço por usuário/mês · faixa 20–39<b>e o stack que ele substitui custa R$ 196</b></span><i class="v">R$ 87</i><i class="v p">R$ 105</i><i class="v p">≈R$ 137</i><i class="v p">≈R$ 66</i><i class="v p">R$ 59</i><i class="v p">R$ 70</i></div>
-      <div class="lg"><span><b class="y">✓</b>entrega de fábrica</span><span><b>~</b>parcial, via app ou plano superior</span><span><b>—</b>não faz</span><span style="opacity:.72">Planos públicos dos fabricantes · ago/2026 · Asana e ClickUp em dólar</span></div>
+  <div class="body tight mtx">
+    <h2 class="mega xs mxt"><span class="ln"><i>Não é o mesmo produto</i></span><span class="ln"><i>com <em>preço diferente.</em></i></span></h2>
+    <div class="mxhint"><svg style="width:1.2em;height:1.2em"><use href="#ar"/></svg>Arraste a tabela para o lado</div>
+    <div class="mxwrap"><div class="mx">
+      <div class="mr mh"><span>O que a sua operação precisa</span><span class="a">ARIUNO</span><span>monday</span><span>Asana</span><span>ClickUp</span><span>Runrun.it</span><span>Operand</span></div>
+      <div class="mr"><span class="k">Quadros, lista, Gantt e calendário</span><i class="y"><span>✓</span></i><i class="y"><span>✓</span></i><i class="y"><span>✓</span></i><i class="y"><span>✓</span></i><i class="y"><span>✓</span></i><i class="p"><span>~</span></i></div>
+      <div class="mr"><span class="k">Timer na tarefa e apontamento de horas</span><i class="y"><span>✓</span></i><i class="p"><span>~</span></i><i class="p"><span>~</span></i><i class="y"><span>✓</span></i><i class="y"><span>✓</span></i><i class="y"><span>✓</span></i></div>
+      <div class="mr"><span class="k">Horas consumidas × horas contratadas</span><i class="y"><span>✓</span></i><i class="n"><span>—</span></i><i class="n"><span>—</span></i><i class="n"><span>—</span></i><i class="p"><span>~</span></i><i class="p"><span>~</span></i></div>
+      <div class="mr"><span class="k">Aprovação com histórico, interna e do cliente</span><i class="y"><span>✓</span></i><i class="p"><span>~</span></i><i class="p"><span>~</span></i><i class="p"><span>~</span></i><i class="n"><span>—</span></i><i class="p"><span>~</span></i></div>
+      <div class="mr"><span class="k">Relatório do cliente em link público e PDF</span><i class="y"><span>✓</span></i><i class="p"><span>~</span></i><i class="n"><span>—</span></i><i class="p"><span>~</span></i><i class="p"><span>~</span></i><i class="p"><span>~</span></i></div>
+      <div class="mr"><span class="k">Usuário “cliente” ilimitado e sem custo</span><i class="y"><span>✓</span></i><i class="n"><span>—</span></i><i class="p"><span>~</span></i><i class="p"><span>~</span></i><i class="n"><span>—</span></i><i class="p"><span>~</span></i></div>
+      <div class="mr"><span class="k">Financeiro: orçamento, despesa e faturamento</span><i class="y"><span>✓</span></i><i class="n"><span>—</span></i><i class="n"><span>—</span></i><i class="n"><span>—</span></i><i class="n"><span>—</span></i><i class="y"><span>✓</span></i></div>
+      <div class="mr"><span class="k">Módulos prontos por área da empresa</span><i class="y"><span>✓</span></i><i class="p"><span>~</span></i><i class="n"><span>—</span></i><i class="p"><span>~</span></i><i class="n"><span>—</span></i><i class="p"><span>~</span></i></div>
+      <div class="mr"><span class="k">Gamificação para o time querer usar</span><i class="y"><span>✓</span></i><i class="n"><span>—</span></i><i class="n"><span>—</span></i><i class="n"><span>—</span></i><i class="n"><span>—</span></i><i class="n"><span>—</span></i></div>
+      <div class="mr"><span class="k">IA que lê o dado da sua empresa</span><i class="y"><span>✓</span></i><i class="p"><span>~</span></i><i class="p"><span>~</span></i><i class="p"><span>~</span></i><i class="n"><span>—</span></i><i class="n"><span>—</span></i></div>
+      <div class="mr"><span class="k">White-label: sua marca e seu domínio</span><i class="y"><span>✓</span></i><i class="n"><span>—</span></i><i class="n"><span>—</span></i><i class="n"><span>—</span></i><i class="n"><span>—</span></i><i class="n"><span>—</span></i></div>
+      <div class="mr pr"><span class="k">Preço por usuário/mês · faixa 20–39</span><i class="v"><span>R$ 87</span></i><i class="v p"><span>R$ 105</span></i><i class="v p"><span>≈R$ 137</span></i><i class="v p"><span>≈R$ 66</span></i><i class="v p"><span>R$ 59</span></i><i class="v p"><span>R$ 70</span></i></div>
+    </div></div>
+    <div class="lg" style="display:flex;gap:clamp(10px,1.4vw,24px);flex-wrap:wrap;margin-top:clamp(3px,.4vw,7px);font-family:var(--mono);font-size:clamp(7.4px,.66vw,10.6px);letter-spacing:.12em;text-transform:uppercase;opacity:.52"><span><b class="y" style="font-family:var(--disp);opacity:1;margin-right:.4em;color:var(--gr)">✓</b>entrega de fábrica</span><span><b style="font-family:var(--disp);opacity:1;margin-right:.4em">~</b>parcial, via app ou plano superior</span><span><b style="font-family:var(--disp);opacity:1;margin-right:.4em">—</b>não faz</span><span style="opacity:.72">Planos públicos dos fabricantes · ago/2026 · Asana e ClickUp em dólar</span></div>
     </div>
   </div>
 </section>
@@ -849,7 +963,7 @@ body.hot #ptr{opacity:1}
         <h2 class="mega xs"><span class="ln"><i>Comece pelo</i></span><span class="ln"><i><em>piloto</em> de 30 dias.</i></span></h2>
         <p class="say">Configuramos um quadro real da sua operação, colocamos o seu time dentro e medimos o resultado. <b>Se não mudar o seu dia, você não continua.</b></p>
         <div class="ctas">
-          <a class="cta" href="https://ariuno.com.br" target="_blank" rel="noopener">Conhecer o Ariuno <span class="ar"><svg><use href="#ar"/></svg></span></a>
+          <a class="cta" href="https://ariuno.com.br/?demo=1" target="_blank" rel="noopener">Abrir a demonstração <span class="ar"><svg><use href="#ar"/></svg></span></a>
           <a class="cta gh" href="versao-completa.html">Ver a apresentação completa</a>
         </div>
       </div>
@@ -862,7 +976,7 @@ body.hot #ptr{opacity:1}
           <div class="gr"><span class="gk">Go-live</span><div class="gt"><i class="d" style="left:66%;width:34%">Dias 15–21</i></div></div>
         </div>
         <div class="rows thin">
-          <div class="row"><span class="k">Plataforma</span><span class="v">ariuno.com.br</span></div>
+          <div class="row"><span class="k">Demonstração aberta</span><span class="v">ariuno.com.br/?demo=1</span></div>
           <div class="row"><span class="k">Quem construiu</span><span class="v">75 LAB</span></div>
           <div class="row hi"><span class="k">Do contrato ao go-live</span><span class="v"><em>21 dias</em></span></div>
         </div>
@@ -1008,6 +1122,15 @@ body.hot #ptr{opacity:1}
     });
   });
 
+
+  /* dica de rolagem da matriz só quando ela realmente rola */
+  function mxHint(){
+    document.querySelectorAll('.mxwrap').forEach(function(w){
+      var h=w.parentElement.querySelector('.mxhint'); if(!h) return;
+      h.style.display=(w.scrollWidth-w.clientWidth>4)?'flex':'none';
+    });
+  }
+  mxHint(); addEventListener('resize',mxHint);
 
   /* ══ ampliar prints ══ */
   var lb=document.createElement('div'); lb.className='zlb';
