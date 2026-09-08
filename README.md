@@ -18,7 +18,13 @@ que a 75 LAB construiu e usa todos os dias — para outras empresas.
   gantt de implantação e prints reais da plataforma em moldura de navegador
 - **Prints clicáveis**: qualquer print abre em tela cheia (selo "clique para ampliar"
   em cada imagem, `Esc` fecha, clique na imagem alterna entre ajustar à tela e 100%)
-- **Matriz de funcionalidades** Ariuno × monday × Asana × ClickUp × Runrun.it × Operand
+- **Matriz de funcionalidades** Ariuno × monday × Asana × ClickUp × Runrun.it × Operand,
+  com a coluna do Ariuno em painel sólido e marcas ✓ / ~ / — em círculo
+- **Responsivo**: em telas até 900px o corpo da tela ganha altura natural (rola sem
+  invadir o rodapé), a tipografia sobe para mínimos de leitura no celular, os prints
+  passam a 16:10, as telas em sangria viram card + texto e a matriz rola na horizontal
+  com a primeira coluna fixa
+- **Botão da demonstração** na capa e no fechamento — `ariuno.com.br/?demo=1`, abre sem login
 - Prints capturados da operação real e **anonimizados**: nomes de clientes trocados por
   marcas fictícias, e-mails mascarados, nomes de pessoas substituídos e fotos desfocadas
 
