@@ -536,6 +536,43 @@ body.hot #ptr{opacity:1}
 .uso .ur em{font-style:normal;color:var(--iris-d)}
 .s:not(.paper) .uso .ur em{color:var(--iris-l)}
 
+/* ══════════ SIMULADORES · mesma linguagem do site ══════════ */
+.sim{background:#fff;border-radius:clamp(12px,1.2vw,18px);padding:clamp(13px,1.4vw,22px);
+  box-shadow:0 1px 2px rgb(11 13 30/.05),0 12px 32px -22px rgb(11 13 30/.28);
+  display:flex;flex-direction:column;gap:clamp(9px,1vw,16px)}
+.s:not(.paper) .sim{background:var(--ink-l);box-shadow:none;box-shadow:inset 0 0 0 1px rgba(247,248,253,.12)}
+.ctrl{display:flex;flex-direction:column;gap:.3em}
+.ctrl .cl{display:flex;align-items:baseline;justify-content:space-between;gap:12px}
+.ctrl .cl b{font-family:var(--body);font-weight:500;font-size:clamp(10.4px,.96vw,14.6px);opacity:.72}
+.ctrl .cl output{font-family:var(--disp);font-weight:800;font-size:clamp(14px,1.4vw,22px);letter-spacing:-.025em}
+.ctrl input[type=range]{--trilho:var(--paper-d);--preenchido:50%;-webkit-appearance:none;appearance:none;
+  height:20px;width:100%;background:transparent;cursor:none}
+.s:not(.paper) .ctrl input[type=range]{--trilho:rgba(255,255,255,.18)}
+input[type=range]::-webkit-slider-runnable-track{height:5px;border-radius:999px;
+  background:linear-gradient(90deg,var(--iris) var(--preenchido),var(--trilho) var(--preenchido))}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:19px;height:19px;
+  margin-top:-7px;border-radius:50%;background:var(--ink);box-shadow:0 2px 10px rgb(11 13 30/.3)}
+.s:not(.paper) input[type=range]::-webkit-slider-thumb{background:#fff}
+input[type=range]::-moz-range-track{height:5px;border-radius:999px;background:var(--trilho)}
+input[type=range]::-moz-range-progress{height:5px;border-radius:999px;background:var(--iris)}
+input[type=range]::-moz-range-thumb{width:19px;height:19px;border:0;border-radius:50%;background:var(--ink)}
+.togg{display:inline-flex;background:var(--paper-d);border-radius:clamp(8px,.8vw,12px);padding:4px;gap:2px;align-self:flex-start}
+.s:not(.paper) .togg{background:rgba(255,255,255,.08)}
+.togg button{border:0;background:transparent;color:inherit;cursor:none;font-family:var(--body);
+  border-radius:clamp(6px,.6vw,9px);padding:.45em .85em;text-align:left;transition:background .25s,color .25s}
+.togg button b{display:block;font-family:var(--disp);font-weight:800;font-size:clamp(10.6px,1vw,15px);letter-spacing:-.02em}
+.togg button span{display:block;font-family:var(--mono);font-size:clamp(7.2px,.62vw,9.6px);letter-spacing:.1em;
+  text-transform:uppercase;opacity:.6;margin-top:2px}
+.togg button.on{background:var(--ink);color:#fff}
+.s:not(.paper) .togg button.on{background:var(--iris);color:#fff}
+.met{display:flex;flex-wrap:wrap;gap:clamp(11px,1.5vw,28px)}
+.met .mk{font-family:var(--mono);font-size:clamp(7.4px,.64vw,10.2px);letter-spacing:.14em;text-transform:uppercase;opacity:.55}
+.met .mv{font-family:var(--disp);font-weight:800;font-size:clamp(17px,1.85vw,29px);letter-spacing:-.03em;margin-top:.22em;white-space:nowrap}
+.met .mv.ir{color:var(--iris)}
+.s:not(.paper) .met .mv.ir{color:var(--iris-l)}
+.row.on{background:linear-gradient(90deg,rgba(106,92,255,.18),transparent 72%);padding-left:clamp(8px,1vw,16px)}
+.s:not(.paper) .row.on{background:linear-gradient(90deg,rgba(142,130,255,.22),transparent 72%)}
+
 /* ══════════ ÍNDICE ══════════ */
 .menu{position:fixed;inset:0;background:var(--ink-d);z-index:300;display:none;
   padding:clamp(24px,4.6vw,72px) var(--pad);overflow:auto}
@@ -659,6 +696,19 @@ body.hot #ptr{opacity:1}
   .uso .ut{font-size:clamp(15px,4.4vw,20px)}
   .uso .ud{font-size:clamp(12.6px,3.5vw,15px)}
   .uso .ur span{font-size:clamp(12.6px,3.5vw,15px)}
+  .sim{padding:clamp(13px,3.6vw,18px);gap:clamp(11px,3vw,16px)}
+  .ctrl .cl b{font-size:clamp(12px,3.3vw,14px)}
+  .ctrl .cl output{font-size:clamp(15px,4.2vw,19px)}
+  .ctrl input[type=range]{height:30px}
+  input[type=range]::-webkit-slider-thumb{width:24px;height:24px;margin-top:-9.5px}
+  input[type=range]::-moz-range-thumb{width:24px;height:24px}
+  .togg{width:100%}
+  .togg button{flex:1}
+  .togg button b{font-size:clamp(12px,3.3vw,14px)}
+  .togg button span{font-size:clamp(8.4px,2.3vw,10px)}
+  .met{gap:clamp(12px,3.4vw,18px)}
+  .met .mk{font-size:clamp(8.6px,2.4vw,10.4px)}
+  .met .mv{font-size:clamp(17px,4.8vw,22px)}
   /* sangria vira card + texto no mobile */
   .s.pic{padding:clamp(14px,3.6vw,22px) clamp(16px,4.6vw,26px) clamp(12px,3vw,18px);
     justify-content:flex-start;background:var(--ink)}
@@ -839,19 +889,29 @@ body.hot #ptr{opacity:1}
         <div class="row"><span class="k">E o histórico está…</span><span class="v"><em>Na cabeça de alguém</em></span></div>
       </div>
       <div class="stack">
-        <div class="g g3 keep" style="gap:clamp(8px,1.2vw,20px)">
-          <div class="bn fu"><span class="num sm"><span data-n="20">0</span></span><span class="lb">pessoas</span></div>
-          <div class="bn fu"><span class="num sm"><span data-n="1">0</span><u>h/dia</u></span><span class="lb">procurando informação</span></div>
-          <div class="bn fu"><span class="num sm"><span class="pfx">R$</span><span data-n="45">0</span></span><span class="lb">hora do time</span></div>
+        <div class="sim" data-calc>
+          <div class="ctrl">
+            <span class="cl"><b>Pessoas no time</b><output data-o="pessoas">20</output></span>
+            <input type="range" data-k="pessoas" min="3" max="150" step="1" value="20" aria-label="Pessoas no time">
+          </div>
+          <div class="ctrl">
+            <span class="cl"><b>Horas perdidas por dia, por pessoa</b><output data-o="horas">1h</output></span>
+            <input type="range" data-k="horas" min="0.25" max="3" step="0.25" value="1" aria-label="Horas perdidas por dia">
+          </div>
+          <div class="ctrl">
+            <span class="cl"><b>Valor da hora do time</b><output data-o="valor">R$ 45</output></span>
+            <input type="range" data-k="valor" min="20" max="200" step="5" value="45" aria-label="Valor da hora">
+          </div>
         </div>
-        <div class="rows">
-          <div class="row hi"><span class="k">Queimados por mês em retrabalho</span><span class="v"><em>R$ <span data-n="18900" data-f>0</span></em></span></div>
-          <div class="row"><span class="k">Por ano</span><span class="v">R$ <span data-n="226800" data-f>0</span></span></div>
+        <div class="rows thin">
+          <div class="row hi"><span class="k">Queimados por mês em retrabalho</span><span class="v"><em data-o="mes">R$ 18.900</em></span></div>
+          <div class="row"><span class="k">Por ano</span><span class="v" data-o="ano">R$ 226.800</span></div>
+          <div class="row"><span class="k">O Ariuno para esse time</span><span class="v" data-o="ariuno">R$ 2.380<s data-o="vezes">8× menos</s></span></div>
         </div>
         <p class="say sm">O caro nunca foi a assinatura. É o <b>retrabalho que ela deixa de evitar</b>.</p>
       </div>
     </div>
-    <p class="disc">Cenário ilustrativo: 20 pessoas × 1h/dia × 21 dias úteis × R$ 45/hora. Troque pelos números do seu time: a conclusão costuma ser a mesma.</p>
+    <p class="disc">Mexa nos controles com a realidade da sua empresa: pessoas × horas perdidas por dia × 21 dias úteis × valor da hora. O valor do Ariuno sai da tabela por faixa, no preço com prazo.</p>
   </div>
 </section>
 
@@ -1023,19 +1083,29 @@ body.hot #ptr{opacity:1}
     <h2 class="mega xs"><span class="ln"><i>Quanto maior o time,</i></span><span class="ln"><i><em>menos custa</em> cada pessoa.</i></span></h2>
     <div class="sp-b">
       <div class="rows thin">
-        <div class="row"><span class="k">até 5 usuários</span><span class="v">R$ 179<s>com prazo · R$ 199 no mensal</s></span></div>
-        <div class="row"><span class="k">6 a 10 usuários</span><span class="v">R$ 159<s>com prazo · R$ 179 no mensal</s></span></div>
-        <div class="row"><span class="k">11 a 15 usuários</span><span class="v">R$ 139<s>com prazo · R$ 159 no mensal</s></span></div>
-        <div class="row hi"><span class="k">acima de 15 usuários</span><span class="v"><em>R$ 119</em><s>com prazo · R$ 139 no mensal</s></span></div>
+        <div class="row" data-faixa="5"><span class="k">até 5 usuários</span><span class="v">R$ 179<s>com prazo · R$ 199 no mensal</s></span></div>
+        <div class="row" data-faixa="10"><span class="k">6 a 10 usuários</span><span class="v">R$ 159<s>com prazo · R$ 179 no mensal</s></span></div>
+        <div class="row" data-faixa="15"><span class="k">11 a 15 usuários</span><span class="v">R$ 139<s>com prazo · R$ 159 no mensal</s></span></div>
+        <div class="row" data-faixa="99999"><span class="k">acima de 15 usuários</span><span class="v"><em>R$ 119</em><s>com prazo · R$ 139 no mensal</s></span></div>
       </div>
       <div class="stack">
-        <div class="g g2" style="gap:clamp(8px,1vw,14px)">
-          <div class="cd hl fu"><span class="n">Time de 30 pessoas</span><span class="t">R$ 3.570<span style="font-size:.5em;font-stretch:100%">/mês</span></span><span class="d">Contra R$ 28.350/mês queimados com 1h/dia de retrabalho: <b>7,9× de retorno</b>.</span></div>
-          <div class="cd lm fu"><span class="n">Não ocupa assento</span><span class="t">Cliente grátis</span><span class="d">Usuários “cliente” ilimitados: acompanham e aprovam sem custo.</span></div>
+        <div class="sim" data-preco>
+          <div class="ctrl">
+            <span class="cl"><b>Tamanho do time</b><output data-o="usuarios">20 usuários</output></span>
+            <input type="range" data-k="usuarios" min="1" max="200" step="1" value="20" aria-label="Tamanho do time">
+          </div>
+          <div class="togg" role="group" aria-label="Como contratar">
+            <button type="button" data-ciclo="prazo" class="on"><b>Com prazo</b><span>a partir de 6 meses</span></button>
+            <button type="button" data-ciclo="mensal"><b>Mensal</b><span>sem fidelidade</span></button>
+          </div>
+          <div class="met">
+            <div><p class="mk">Por usuário</p><p class="mv" data-o="porUsuario">R$ 119</p></div>
+            <div><p class="mk">Por mês</p><p class="mv ir" data-o="total">R$ 2.380</p></div>
+            <div><p class="mk" data-o="terceiroK">Economia por mês</p><p class="mv" data-o="terceiro">R$ 400</p></div>
+          </div>
         </div>
         <div class="rows thin">
-          <div class="row"><span class="k">Todos os módulos</span><span class="v">Sem plano trancado</span></div>
-          <div class="row"><span class="k">Com prazo de 6 meses ou mais</span><span class="v"><em>Preço menor</em></span></div>
+          <div class="row"><span class="k">Cliente não ocupa assento</span><span class="v"><em>Grátis</em></span></div>
           <div class="row"><span class="k">Implantação e treinamento</span><span class="v">R$ 3.900<s>uma única vez</s></span></div>
           <div class="row"><span class="k">White-label (sua marca)</span><span class="v">R$ 690<s>por mês</s></span></div>
         </div>
@@ -1168,6 +1238,7 @@ body.hot #ptr{opacity:1}
   document.getElementById('mx').onclick=function(){menu.classList.remove('open')};
 
   document.addEventListener('keydown',function(e){
+    if(e.target && e.target.closest && e.target.closest('input,.togg')) return;
     if(lb.classList.contains('open')){ if(e.key==='Escape'||e.key===' ')closeLb(); return; }
     if(menu.classList.contains('open')){ if(e.key==='Escape')menu.classList.remove('open'); return; }
     if(['ArrowRight','PageDown',' '].indexOf(e.key)>-1){e.preventDefault();go(i+1)}
@@ -1250,6 +1321,71 @@ body.hot #ptr{opacity:1}
       openLb(im.currentSrc||im.src,(cp&&cp.textContent)||(tb&&tb.textContent)||im.alt||'');
     });
   });
+
+  /* ══ simuladores (mesma conta do site) ══ */
+  function brl(v){ return 'R$ ' + Math.round(v).toLocaleString('pt-BR'); }
+  function faixaDe(n){
+    if(n<=5) return {prazo:179,mensal:199};
+    if(n<=10) return {prazo:159,mensal:179};
+    if(n<=15) return {prazo:139,mensal:159};
+    return {prazo:119,mensal:139};
+  }
+  function trilho(el){
+    var min=+el.min, max=+el.max, v=+el.value;
+    el.style.setProperty('--preenchido', ((v-min)/(max-min)*100)+'%');
+  }
+
+  var calc=document.querySelector('[data-calc]');
+  if(calc){
+    var saida=calc.closest('.stack');
+    var achar=function(k){ return calc.querySelector('[data-k="'+k+'"]'); };
+    var mostrar=function(k){ return saida.querySelector('[data-o="'+k+'"]'); };
+    var atualizaCalc=function(){
+      var p=+achar('pessoas').value, h=+achar('horas').value, v=+achar('valor').value;
+      [achar('pessoas'),achar('horas'),achar('valor')].forEach(trilho);
+      mostrar('pessoas').textContent=p;
+      mostrar('horas').textContent=(h%1?h.toLocaleString('pt-BR'):h)+'h';
+      mostrar('valor').textContent=brl(v);
+      var mes=p*h*21*v, f=faixaDe(p), ariuno=f.prazo*p;
+      mostrar('mes').textContent=brl(mes);
+      mostrar('ano').textContent=brl(mes*12);
+      mostrar('ariuno').childNodes[0].nodeValue=brl(ariuno);
+      var vezes=mes/Math.max(ariuno,1);
+      mostrar('vezes').textContent=vezes>=1.5 ? vezes.toLocaleString('pt-BR',{maximumFractionDigits:1})+'× menos' : 'por mês';
+    };
+    calc.addEventListener('input', atualizaCalc);
+    atualizaCalc();
+  }
+
+  var preco=document.querySelector('[data-preco]');
+  if(preco){
+    var tela=preco.closest('.body');
+    var ciclo='prazo';
+    var campo=preco.querySelector('[data-k="usuarios"]');
+    var ver=function(k){ return preco.querySelector('[data-o="'+k+'"]'); };
+    var atualizaPreco=function(){
+      var n=+campo.value, f=faixaDe(n);
+      trilho(campo);
+      ver('usuarios').textContent=n+(n===1?' usuário':' usuários');
+      var porUsuario = ciclo==='prazo'? f.prazo : f.mensal;
+      var outro = ciclo==='prazo'? f.mensal : f.prazo;
+      ver('porUsuario').textContent=brl(porUsuario);
+      ver('total').textContent=brl(porUsuario*n);
+      ver('terceiroK').textContent = ciclo==='prazo' ? 'Economia por mês' : 'Com prazo ficaria';
+      ver('terceiro').textContent = ciclo==='prazo' ? brl((f.mensal-f.prazo)*n) : brl(outro*n);
+      preco.querySelectorAll('.togg button').forEach(function(b){ b.classList.toggle('on', b.getAttribute('data-ciclo')===ciclo); });
+      tela.querySelectorAll('[data-faixa]').forEach(function(r){
+        r.classList.toggle('on', n<=+r.getAttribute('data-faixa'));
+      });
+      var ativa=[].slice.call(tela.querySelectorAll('[data-faixa]')).filter(function(r){ return r.classList.contains('on'); })[0];
+      tela.querySelectorAll('[data-faixa]').forEach(function(r){ r.classList.toggle('on', r===ativa); });
+    };
+    preco.addEventListener('input', atualizaPreco);
+    preco.querySelectorAll('.togg button').forEach(function(b){
+      b.addEventListener('click', function(){ ciclo=b.getAttribute('data-ciclo'); atualizaPreco(); });
+    });
+    atualizaPreco();
+  }
 
   /* ══ explorador de funcionalidades ══ */
   var explT=null;
