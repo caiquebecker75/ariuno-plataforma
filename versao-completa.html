@@ -574,6 +574,47 @@ input[type=range]::-moz-range-thumb{width:19px;height:19px;border:0;border-radiu
 .row.on{background:linear-gradient(90deg,rgba(106,92,255,.18),transparent 72%);padding-left:clamp(8px,1vw,16px)}
 .s:not(.paper) .row.on{background:linear-gradient(90deg,rgba(142,130,255,.22),transparent 72%)}
 
+/* ══════════ COMPARADOR ANTES E DEPOIS ══════════ */
+.comp{position:relative;overflow:hidden;border-radius:clamp(12px,1.2vw,18px);background:var(--paper-d);
+  aspect-ratio:16/10;width:100%;max-height:46vh;margin-inline:auto;user-select:none}
+.comp .cTag{position:absolute;z-index:3;display:flex;align-items:center;gap:.5em;
+  font-family:var(--mono);font-size:clamp(7.6px,.68vw,10.6px);letter-spacing:.14em;text-transform:uppercase}
+.comp .cA{left:clamp(12px,1.6vw,26px);top:clamp(12px,1.6vw,26px);color:var(--wn)}
+.comp .cD{right:clamp(12px,1.6vw,26px);top:clamp(12px,1.6vw,26px);color:var(--lime)}
+.cAntes{position:absolute;inset:0;padding:clamp(12px,1.6vw,26px);display:flex;flex-direction:column;
+  gap:clamp(6px,.8vw,12px);padding-top:clamp(30px,3.4vw,52px)}
+.cAbas{flex:1;display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(5px,.7vw,11px);align-content:start}
+.cAba{background:#fff;border-radius:clamp(7px,.7vw,11px);padding:clamp(6px,.75vw,12px);
+  box-shadow:0 2px 10px -6px rgb(11 13 30/.4);transform:rotate(var(--g,0deg))}
+.cAba .cN{display:flex;align-items:center;gap:.4em;font-family:var(--mono);font-size:clamp(6.4px,.56vw,8.8px);
+  letter-spacing:.1em;text-transform:uppercase;color:var(--txt-3)}
+.cAba b{display:block;margin-top:.25em;font-family:var(--disp);font-weight:800;letter-spacing:-.02em;
+  font-size:clamp(9.6px,.95vw,15px);color:var(--txt)}
+.cAba i{display:block;margin-top:.1em;font-style:normal;font-size:clamp(7.6px,.7vw,11px);line-height:1.25;color:var(--txt-3)}
+.cAviso{display:flex;align-items:center;gap:.5em;font-size:clamp(9px,.86vw,13.4px);font-weight:500;color:var(--wn)}
+.cDepois{position:absolute;inset:0;background:var(--ink);overflow:hidden}
+.cDepois img{position:absolute;right:4%;bottom:7%;width:78%;border-radius:clamp(6px,.6vw,10px);
+  box-shadow:0 24px 60px -28px rgb(0 0 0/.85);display:block}
+.cHaste{position:absolute;top:0;bottom:0;z-index:4;pointer-events:none}
+.cHaste .cLinha{position:absolute;top:0;bottom:0;left:-1px;width:2px;background:var(--lime)}
+.cHaste .cBola{position:absolute;top:50%;left:0;transform:translate(-50%,-50%);display:grid;place-items:center;
+  width:clamp(28px,2.8vw,42px);height:clamp(28px,2.8vw,42px);border-radius:50%;background:var(--lime);color:var(--lab-ink);
+  box-shadow:0 6px 20px -6px rgb(11 13 30/.6)}
+.cHaste .cBola svg{width:52%;height:52%}
+.cRange{position:absolute;inset:0;z-index:5;width:100%;height:100%;opacity:0;cursor:none;-webkit-appearance:none;appearance:none;background:transparent}
+.cRange::-webkit-slider-thumb{-webkit-appearance:none;width:44px;height:100%;background:transparent}
+.cDica{display:flex;align-items:center;gap:.5em;margin-top:clamp(5px,.6vw,9px);
+  font-family:var(--mono);font-size:clamp(7.4px,.64vw,10.2px);letter-spacing:.12em;text-transform:uppercase;opacity:.55}
+@media(max-width:900px){
+  .comp{max-height:none;aspect-ratio:4/5.2}
+  .cAbas{grid-template-columns:repeat(2,1fr)}
+  .cAba b{font-size:clamp(12px,3.4vw,15px)}
+  .cAba i{font-size:clamp(10px,2.8vw,12px)}
+  .cAviso{font-size:clamp(11px,3vw,13px)}
+  .cDepois img{width:92%;right:3%;bottom:auto;top:50%;transform:translateY(-46%)}
+  .cAviso{max-width:52%}
+}
+
 /* ══════════ ÍNDICE ══════════ */
 .menu{position:fixed;inset:0;background:var(--ink-d);z-index:300;display:none;
   padding:clamp(24px,4.6vw,72px) var(--pad);overflow:auto}
@@ -891,13 +932,31 @@ input[type=range]::-moz-range-thumb{width:19px;height:19px;border:0;border-radiu
   <div class="body">
     <h2 class="mega xs"><span class="ln"><i>A sua operação não</i></span><span class="ln"><i>roda num sistema.</i></span><span class="ln"><i>Roda em <em>14 abas</em> abertas.</i></span></h2>
     <div class="sp-b">
-      <div class="rows thin">
-        <div class="row"><span class="k">O briefing chegou por…</span><span class="v">WhatsApp</span></div>
-        <div class="row"><span class="k">O prazo está em…</span><span class="v">Planilha</span></div>
-        <div class="row"><span class="k">A aprovação ficou em…</span><span class="v">E-mail</span></div>
-        <div class="row"><span class="k">O arquivo final está no…</span><span class="v">Drive</span></div>
-        <div class="row"><span class="k">As horas gastas estão…</span><span class="v"><em>Em lugar nenhum</em></span></div>
-        <div class="row"><span class="k">E o histórico está…</span><span class="v"><em>Na cabeça de alguém</em></span></div>
+      <div>
+        <div class="comp" data-comp>
+          <div class="cAntes">
+            <div class="cAbas">
+              <div class="cAba" style="--g:-1deg"><span class="cN">aba 01</span><b>WhatsApp</b><i>o briefing chegou aqui</i></div>
+              <div class="cAba" style="--g:.8deg"><span class="cN">aba 02</span><b>Planilha</b><i>o prazo mora aqui</i></div>
+              <div class="cAba" style="--g:-.6deg"><span class="cN">aba 03</span><b>E-mail</b><i>a aprovação ficou aqui</i></div>
+              <div class="cAba" style="--g:1deg"><span class="cN">aba 04</span><b>Drive</b><i>o arquivo final está aqui</i></div>
+              <div class="cAba" style="--g:-.9deg"><span class="cN">aba 05</span><b>Bloco de notas</b><i>as horas, quando alguém anota</i></div>
+              <div class="cAba" style="--g:.7deg"><span class="cN">aba 06</span><b>Cabeça de alguém</b><i>o histórico do cliente</i></div>
+            </div>
+            <p class="cAviso">Ninguém sabe onde está a informação</p>
+          </div>
+          <p class="cTag cA">antes</p>
+          <div class="cDepois" style="clip-path:inset(0 0 0 52%)">
+            <img src="assets/shots/02-visao-geral.png" alt="Visão geral do Ariuno com a operação inteira num lugar só">
+          </div>
+          <p class="cTag cD">depois, no Ariuno</p>
+          <div class="cHaste" style="left:52%">
+            <span class="cLinha"></span>
+            <span class="cBola"><svg viewBox="0 0 24 24" fill="none"><path d="M9 7l-5 5 5 5M15 7l5 5-5 5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          </div>
+          <input class="cRange" type="range" min="8" max="92" value="52" aria-label="Arraste para comparar a operação espalhada com a operação dentro do Ariuno">
+        </div>
+        <p class="cDica"><span style="color:var(--lime)">→</span>arraste a barra verde</p>
       </div>
       <p class="say">Nenhuma dessas ferramentas é ruim. O problema é que <b>nenhuma delas conversa</b>, e alguém do time paga essa conta, todo dia, em retrabalho.</p>
     </div>
@@ -1631,6 +1690,14 @@ input[type=range]::-moz-range-thumb{width:19px;height:19px;border:0;border-radiu
     });
   }
   mxHint(); addEventListener('resize',mxHint);
+
+  /* ══ comparador antes / depois ══ */
+  document.querySelectorAll('[data-comp]').forEach(function(box){
+    var faixa=box.querySelector('.cRange'), depois=box.querySelector('.cDepois'), haste=box.querySelector('.cHaste');
+    var mover=function(){ var v=+faixa.value;
+      depois.style.clipPath='inset(0 0 0 '+v+'%)'; haste.style.left=v+'%'; };
+    faixa.addEventListener('input', mover); mover();
+  });
 
   /* ══ simuladores (mesma conta do site) ══ */
   function brl(v){ return 'R$ ' + Math.round(v).toLocaleString('pt-BR'); }
